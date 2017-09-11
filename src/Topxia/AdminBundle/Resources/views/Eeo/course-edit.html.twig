@@ -1,0 +1,164 @@
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'dashboard' %}
+{% set script_controller = 'default/index' %}
+{% block content %}
+ <link rel="stylesheet" href="{{ asset('bundles/topxiaadmin/themes/pages/css/search.min.css') }}" />
+
+     <div class="container-fluid">
+                <div class="page-content">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <div class="breadcrumbs">
+                        <h1>全部课节</h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="#">管理</a>
+                            </li>
+                            <li>
+                                <a href="#">eeo</a>
+                            </li>
+                            <li class="active">课堂管理</li>
+                        </ol>
+                        <!-- Sidebar Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- Sidebar Toggle Button -->
+                    </div>
+                    <!-- END BREADCRUMBS -->
+                    <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
+                    <div class="page-content-container">
+                        <div class="page-content-row">
+                     
+
+
+                                    
+ <div class="portlet light bordered">
+    <form action="../assets/global/plugins/dropzone/upload.php" class="dropzone dropzone-file-area" id="my-dropzone" style="width: 500px; margin-top: 50px;">
+            <h3>课程封面</h3>
+                                            <p> 1.封面图片尺寸为200*200 </p>
+                                            <p> 2.封面图片大小需小于2MB</p>
+                                            <p>3.封面图片格式支持JPG,PNG,GIF  </p>
+                                        </form>
+                                               
+                                                        <div class="portlet-body form">
+                                                            <!-- BEGIN FORM-->
+                                                            <form action="#" class="form-horizontal">
+                                                                <div class="form-body">
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-4 control-label"></label>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" class="form-control" placeholder="课程名称" value="{{course.course_name}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-4 control-label"> </label>
+                                                                        <div class="col-md-4">
+                                                                           {#  <input type="text" class="form-control" placeholder=""> #}
+                                                                            <textarea class="form-control" style = "height:150px;" placeholder="">
+                                                                            </textarea>课程简介
+                                                                        </div>
+                                                                    </div>
+                                                                     <div class="form-group">
+                                                                        <label class="col-md-4 control-label"></label>
+                                                                        <div class="col-md-2">
+                                                                            {# <p>Your current resources is :</p><p> {{course.folder_name}}</p> #}
+                                                                            <a data-toggle="modal" href="#small" class = "btn green">{{course.folder_name}}</a>
+                                                                           <p>课程资源</p>
+
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                             <input type="text" class="form-control" placeholder="">
+                                                                             课程有效期
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                <div class="form-actions">
+                                                                    <div class="row">
+                                                                        <div class="col-md-offset-7 col-md-7">
+                                                                            <button type="submit" class="btn green">Submit</button>
+                                                                            <button type="button" class="btn default">Cancel</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <!-- END FORM-->
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal fade bs-modal-sm" id="small" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                <h4 class="modal-title">选择资源</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                  <div class="portlet-body">
+                                                                        <div id="tree_1" class="tree-demo">
+
+                                                                            {{resources}}
+                                                                           {#  <ul>
+                                                                                <li> Root node 1
+                                                                                    <ul>
+                                                                                        <li data-jstree='{ "selected" : true }'>
+                                                                                            <a href="javascript:;"> Initially selected </a>
+                                                                                        </li>
+                                                                                        <li data-jstree='{ "icon" : "fa fa-briefcase icon-state-success " }'> custom icon URL </li>
+                                                                                        <li data-jstree='{ "opened" : true }'> initially open
+                                                                                            <ul>
+                                                                                                <li data-jstree='{ "disabled" : true }'> Disabled Node </li>
+                                                                                                <li data-jstree='{ "type" : "file" }'> Another node </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                        <li data-jstree='{ "icon" : "fa fa-warning icon-state-danger" }'> Custom icon class (bootstrap) </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                                <li data-jstree='{ "type" : "file" }'>
+                                                                                    <a href="http://www.jstree.com"> Clickanle link node </a>
+                                                                                </li>
+                                                                            </ul> #}
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                {# <button type="button" class="btn dark btn-outline" data-dismiss="modal">没有</button> #}
+                                                                <button type="button" class="btn green">确定</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- BEGIN FOOTER -->
+                        <p class="copyright"> 2016 &copy; Metronic Theme By
+                            <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                            <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                        </p>
+                        <a href="#index" class="go2top">
+                            <i class="icon-arrow-up"></i>
+                        </a>
+                        <!-- END FOOTER -->
+                    </div>
+
+            <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/datatable.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/datatables/datatables.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/search.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/app.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/ui-tree.min.js') }}"></script>
+{% endblock %}

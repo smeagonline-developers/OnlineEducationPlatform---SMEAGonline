@@ -1,0 +1,661 @@
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+{# {% import "TopxiaAdminBundle::macro.html.twig" as admin_macro %} #}
+{% import _self as self_macro %}
+
+<!DOCTYPE html>
+{% set menu = menu|default(null) %}
+{% set menu_breadcrumb = menu_breadcrumb('admin', menu) %}
+{% set menu_current = menu_breadcrumb|last %}
+{% set menu_nav = menu_breadcrumb[0]|default(null) %}
+{% set menu_sidebar = menu_breadcrumb[1]|default(null) %}
+{% set menu_main = menu_breadcrumb[2]|default(null) %}
+{% set menu_hiddens = setting('menu_hiddens', []) %}
+{% if hiddenMenus() %}{% endif %}
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class=""> <!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="{{ csrf_token('site') }}" name="csrf-token" />
+  <title>
+    {% block title %}
+      {% for m in menu_breadcrumb|reverse %}
+        {% if loop.index == menu_breadcrumb|length %}
+          {{ m.name }}
+        {% else %}
+          {{ m.name }} -
+        {% endif %}
+      {% endfor %}
+    {% endblock %}
+    {% if not setting('copyright.owned') %} | EduSoho{% endif %}
+  </title>
+
+  {% if setting('site.favicon') %}
+  <link href="{{ asset(setting('site.favicon')) }}" rel="shortcut icon" />
+  {% endif %}
+
+
+    <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
+    {# GLOBAL MANDATORY STYLES #}
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
+
+    {# page level plugin #}
+    {% block pageLevelCSSPlugin %}{% endblock %}
+
+    {# THEME GLOBAL STYLES #}
+    <link href="{{ asset('bundles/metronicadmin/themes/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/css/plugins.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
+    {# HEME LAYOUT STYLES #}
+    <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/layout.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/custom.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
+
+    {#  MANDATORY JS #}
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/eeoapi/app/lib/angular.min.js') }}"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/js.cookie.min.js') }}"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/jquery.blockui.min.js') }}"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+</head>
+<body {% if bodyClass|default('') %}class="{{ bodyClass }}"{% endif %} ng-app = "EeoApp">
+    
+    <div style="width:100%;" class="container">
+
+        {# theme #}
+        <div class="wrapper">
+            {# <!-- BEGIN HEADER --> #}
+            <header class="page-header">
+                <nav class="navbar mega-menu" role="navigation">
+                    <div class="container-fluid">
+                        <div class="clearfix navbar-fixed-top">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="toggle-icon">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </span>
+                            </button>
+                            {# <!-- End Toggle Button --> #}
+
+                            {# <!-- BEGIN LOGO --> #}
+                            {#    <a class="navbar-brand" href="{{ url('admin') }}">{% if not setting('copyright.owned') %}SMEAGOnline {% endif %}{{'管理后台'|trans}}</a> #}
+                            <a class="navbar-brand" href="{{ url('admin') }}">{% if not setting('copyright.owned') %}SMEAG{{'线上'|trans}} {% endif %}{# {{'管理后台'|trans}} #}</a>
+                            {# <!-- END LOGO --> #}
+
+                            {# <!-- BEGIN SEARCH --> #}
+                            <form class="search" action="extra_search.html" method="GET">
+                                <input type="name" class="form-control" name="query" placeholder="{{'Search...'|trans}}">
+                                <a href="javascript:;" class="btn submit md-skip">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </form>
+                             {# END SEARCH  #}
+                          {# BEGIN TOPBAR ACTIONS  #}
+                            <div class="topbar-actions">
+                                <!-- BEGIN GROUP NOTIFICATION -->
+                                <div class="btn-group-notification btn-group" id="header_notification_bar">
+                                    <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <i class="icon-bell"></i>
+                                        <span class="badge">7</span>
+                                    </button>
+                                    <ul class="dropdown-menu-v2">
+                                        <li class="external">
+                                            <h3>
+                                                <span class="bold">12 {{'pending'|trans}}</span> {{'notifications'|trans}}</h3>
+                                            <a href="#">{{'view all'|trans}}</a>
+                                        </li>
+                                        <li>
+                                            <ul class="dropdown-menu-list scroller" style="height: 250px; padding: 0;" data-handle-color="#637283">
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-success md-skip">
+                                                                <i class="fa fa-plus"></i>
+                                                            </span> New user registered. </span>
+                                                        <span class="time">just now</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger md-skip">
+                                                                <i class="fa fa-bolt"></i>
+                                                            </span> Server #12 overloaded. </span>
+                                                        <span class="time">3 mins</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-warning md-skip">
+                                                                <i class="fa fa-bell-o"></i>
+                                                            </span> Server #2 not responding. </span>
+                                                        <span class="time">10 mins</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-info md-skip">
+                                                                <i class="fa fa-bullhorn"></i>
+                                                            </span> Application error. </span>
+                                                        <span class="time">14 hrs</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger md-skip">
+                                                                <i class="fa fa-bolt"></i>
+                                                            </span> Database overloaded 68%. </span>
+                                                        <span class="time">2 days</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger md-skip">
+                                                                <i class="fa fa-bolt"></i>
+                                                            </span> A user IP blocked. </span>
+                                                        <span class="time">3 days</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-warning md-skip">
+                                                                <i class="fa fa-bell-o"></i>
+                                                            </span> Storage Server #4 not responding dfdfdfd. </span>
+                                                        <span class="time">4 days</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-info md-skip">
+                                                                <i class="fa fa-bullhorn"></i>
+                                                            </span> System Error. </span>
+                                                        <span class="time">5 days</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;">
+                                                        <span class="details">
+                                                            <span class="label label-sm label-icon label-danger md-skip">
+                                                                <i class="fa fa-bolt"></i>
+                                                            </span> Storage server failed. </span>
+                                                        <span class="time">9 days</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- END GROUP NOTIFICATION -->
+
+                                <!-- BEGIN GROUP INFORMATION -->
+                                <div class="btn-group-red btn-group">
+                                    <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <ul class="dropdown-menu-v2" role="menu">
+                                        <li class="active">
+                                            <a href="#">{{'New Post'|trans}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">{{'New Comment'|trans}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">{{'Share'|trans}}</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#">{{'Comments'|trans}}
+                                                <span class="badge badge-success">4</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">{{'Feedbacks'|trans}}
+                                                <span class="badge badge-danger">2</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- END GROUP INFORMATION -->
+
+                                <!-- BEGIN USER PROFILE -->
+                                <div class="btn-group-img btn-group">
+                                    <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <span>Hi, {{ app.user.nickname }}</span>
+                                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>  <span class="glyphicon glyphicon-chevron-down"></span></a>
+                                          {% image '@TopxiaAdminBundle/Resources/public/themes/layouts/layout/img/avatar1.jpg' %}
+                                       <img src="{{ asset_url }}" alt="...">
+                                    {% endimage %}
+                                    </button>
+                                    <ul class="dropdown-menu-v2" role="menu">
+                                        <li>
+                                            <a href="page_user_profile_1.html">
+                                                <i class="icon-user"></i> {{' My Profile'|trans}}
+                                                <span class="badge badge-danger">1</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="app_calendar.html">
+                                                <i class="icon-calendar"></i> {{'My Calendar'|trans}} </a>
+                                        </li>
+                                        <li>
+                                            <a href="app_inbox.html">
+                                                <i class="icon-envelope-open"></i> {{'My Inbox'|trans}}
+                                                <span class="badge badge-danger"> 3 </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="app_todo_2.html">
+                                                <i class="icon-rocket"></i> {{'My Tasks'|trans}}
+                                                <span class="badge badge-success"> 7 </span>
+                                            </a>
+                                        </li>
+                                        <li class="divider"> </li>
+                                        <li>
+                                            <a href="page_user_lock_1.html">
+                                                <i class="icon-lock"></i> {{'Lock Screen'|trans}} </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('logout') }} ">
+                                                <i class="icon-key"></i> {{'Logout'|trans}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- END USER PROFILE -->
+                                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                                <button type="button" class="quick-sidebar-toggler md-skip" data-toggle="collapse">
+                                    <span class="sr-only">Toggle Quick Sidebar</span>
+                                    <i class="icon-logout"></i>
+                                </button>
+                                <!-- END QUICK SIDEBAR TOGGLER -->
+                            </div>
+                            {# END TOPBAR ACTIONS  #}
+                        </div>
+                        
+
+                        {# BEGIN HEADER MENU  #}
+                        <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown dropdown-fw dropdown-fw-disabled ">
+                                    <a href="javascript:;" class="text-uppercase">
+                                        <i class="icon-home"></i> {{'仪表板'|trans}}  </a>
+                                </li>
+                                <li class="dropdown dropdown-fw dropdown-fw-disabled  active open selected ">
+                                    <a href="javascript:;" class="text-uppercase">
+                                        <i class="icon-puzzle"></i> {{'管理'|trans}} </a>
+                                            <ul class="dropdown-menu dropdown-menu-fw">
+                                                <li class="active">
+                                                    <a href="{{ path('partner_getCourseList') }}">
+                                                        <i class="icon-bar-chart"></i> {{'课程'|trans}} </a>
+                                                </li>
+                                                <li >
+                                                    <a href="dashboard_2.html">
+                                                        <i class="icon-bulb"></i> {{'类'|trans}} </a>
+                                                </li>
+                                                <li>
+                                                    <a href="dashboard_3.html">
+                                                        <i class="icon-graph"></i> {{'财务概况'|trans}} </a>
+                                                </li>
+                                            </ul>
+                                                  
+                                    <li class="dropdown more-dropdown">
+                                    <a href="javascript:;" class="text-uppercase"> {{'系统'|trans}} </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#">{{'开源/本地'|trans}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">{{'云'|trans}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                              {#   <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+                                    <a href="javascript:;" class="text-uppercase">
+                                        <i class="icon-briefcase"></i> Tables </a>
+                                    <ul class="dropdown-menu dropdown-menu-fw">
+                                        <li>
+                                            <a href="table_static_basic.html"> Basic Tables </a>
+                                        </li>
+                                        <li>
+                                            <a href="table_static_responsive.html"> Responsive Tables </a>
+                                        </li>
+                                        <li>
+                                            <a href="table_bootstrap.html"> Bootstrap Tables </a>
+                                        </li>
+                                        <li class="dropdown more-dropdown-sub">
+                                            <a href="javascript:;"> Datatables </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="table_datatables_managed.html"> Managed Datatables </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_buttons.html"> Buttons Extension </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_colreorder.html"> Colreorder Extension </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_rowreorder.html"> Rowreorder Extension </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_scroller.html"> Scroller Extension </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_fixedheader.html"> FixedHeader Extension </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_responsive.html"> Responsive Extension </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_editable.html"> Editable Datatables </a>
+                                                </li>
+                                                <li>
+                                                    <a href="table_datatables_ajax.html"> Ajax Datatables </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+                                    <a href="javascript:;" class="text-uppercase">
+                                        <i class="icon-layers"></i> Pages </a>
+                                    <ul class="dropdown-menu dropdown-menu-fw">
+                                        <li class="dropdown more-dropdown-sub">
+                                            <a href="javascript:;">
+                                                <i class="icon-basket"></i> eCommerce </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="ecommerce_index.html">
+                                                        <i class="icon-home"></i> Dashboard </a>
+                                                </li>
+                                                <li>
+                                                    <a href="ecommerce_orders.html">
+                                                        <i class="icon-basket"></i> Orders </a>
+                                                </li>
+                                                <li>
+                                                    <a href="ecommerce_orders_view.html">
+                                                        <i class="icon-tag"></i> Order View </a>
+                                                </li>
+                                                <li>
+                                                    <a href="ecommerce_products.html">
+                                                        <i class="icon-graph"></i> Products </a>
+                                                </li>
+                                                <li>
+                                                    <a href="ecommerce_products_edit.html">
+                                                        <i class="icon-graph"></i> Product Edit </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown more-dropdown-sub">
+                                            <a href="javascript:;">
+                                                <i class="icon-docs"></i> Apps </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="app_todo.html">
+                                                        <i class="icon-clock"></i> Todo 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="app_todo_2.html">
+                                                        <i class="icon-check"></i> Todo 2 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="app_inbox.html">
+                                                        <i class="icon-envelope"></i> Inbox </a>
+                                                </li>
+                                                <li>
+                                                    <a href="app_calendar.html">
+                                                        <i class="icon-calendar"></i> Calendar </a>
+                                                </li>
+                                                <li>
+                                                    <a href="app_ticket.html">
+                                                        <i class="icon-notebook"></i> Support </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown more-dropdown-sub">
+                                            <a href="javascript:;">
+                                                <i class="icon-user"></i> User </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="page_user_profile_1.html"> Profile 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_profile_1_account.html"> Profile 1 Account </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_profile_1_help.html"> Profile 1 Help </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_profile_2.html"> Profile 2 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_login_1.html"> Login Page 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_login_2.html"> Login Page 2 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_login_3.html"> Login Page 3 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_login_4.html"> Login Page 4 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_login_5.html"> Login Page 5 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_login_6.html"> Login Page 6 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_lock_1.html"> Lock Screen 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_user_lock_2.html"> Lock Screen 2 </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown more-dropdown-sub">
+                                            <a href="javascript:;">
+                                                <i class="icon-social-dribbble"></i> General </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="page_general_about.html"> About </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_contact.html"> Contact </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_portfolio_1.html"> Portfolio 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_portfolio_2.html"> Portfolio 2 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_portfolio_3.html"> Portfolio 3 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_portfolio_4.html"> Portfolio 4 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_search.html"> Search 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_search_2.html"> Search 2 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_search_3.html"> Search 3 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_search_4.html"> Search 4 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_search_5.html"> Search 5 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_pricing.html"> Pricing </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_faq.html"> FAQ </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_blog.html"> Blog </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_blog_post.html"> Blog Post </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_invoice.html"> Invoice </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_general_invoice_2.html"> Invoice 2 </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown more-dropdown-sub">
+                                            <a href="javascript:;">
+                                                <i class="icon-settings"></i> System </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="layout_blank_page.html"> Blank Page </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_system_coming_soon.html"> Coming Soon </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_system_404_1.html"> 404 Page 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_system_404_2.html"> 404 Page 2 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_system_404_3.html"> 404 Page 3 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_system_500_1.html"> 500 Page 1 </a>
+                                                </li>
+                                                <li>
+                                                    <a href="page_system_500_2.html"> 500 Page 2 </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li> #}
+                                <li class="dropdown more-dropdown">
+                                    <a href="javascript:;" class="text-uppercase"> {{'语言'|trans}} </a>
+                                   {#  <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ path('switch_language', {language: 'zh_CN', _target_path: _target_path|default(app.request.server.get('REQUEST_URI'))}) }}"><img src = "{{ asset('bundles/topxiaadmin/img/china-flag.png') }}" width = '30' height = '20' /> {{'中文'|trans}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('switch_language', {language: 'en_US', _target_path: _target_path|default(app.request.server.get('REQUEST_URI'))}) }}"> <img src = "{{ asset('bundles/topxiaadmin/img/us-flag.png') }}" width = '30' height = '20' /> {{'英语'|trans}}</a>
+                                        </li>
+                                    </ul> #}
+                                </li>
+                                 <li class="dropdown more-dropdown" data-url="{{path('admin_common_admin')}}">
+                                   <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" ><span class="glyphicon glyphicon-list admin-star"></span> {{'常用'|trans}}</a>
+                                  {#   <ul class="dropdown-menu shortcuts">
+                                        {{ render(controller('AppBundle:Admin/CommonAdmin:commonAdmin')) }}
+                                    </ul> #}
+                                </li>
+                            </ul>
+                        </div>
+                        {# END HEADER MENU  #}
+
+                    </div>
+                   {# container #}
+                </nav>
+            </header>
+            <!-- END HEADER -->
+            {% block content %}{% endblock %}
+           
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN QUICK SIDEBAR -->
+        <a href="javascript:;" class="page-quick-sidebar-toggler">
+            <i class="icon-login"></i>
+        </a>
+     
+        <!-- END QUICK SIDEBAR -->
+        <!-- BEGIN QUICK NAV -->
+        <nav class="quick-nav">
+            <a class="quick-nav-trigger" href="#0">
+                <span aria-hidden="true"></span>
+            </a>
+            <ul>
+                <li>
+                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" target="_blank" class="active">
+                        <span>Purchase Metronic</span>
+                        <i class="icon-basket"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/reviews/4021469?ref=keenthemes" target="_blank">
+                        <span>Customer Reviews</span>
+                        <i class="icon-users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://keenthemes.com/showcast/" target="_blank">
+                        <span>Showcase</span>
+                        <i class="icon-user"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://keenthemes.com/metronic-theme/changelog/" target="_blank">
+                        <span>Changelog</span>
+                        <i class="icon-graph"></i>
+                    </a>
+                </li>
+            </ul>
+            <span aria-hidden="true" class="quick-nav-bg"></span>
+        </nav>
+        <div class="quick-nav-overlay"></div>
+
+        {# endoftheme #}
+
+
+
+   {#  {% javascripts
+        'bundles/metronicadmin/themes/global/plugins/*'
+        'bundles/metronicadmin/themes/global/scripts/*'
+        'bundles/metronicadmin/themes/pages/scripts/*'
+        'bundles/metronicadmin/themes/apps/scripts/*'
+        'bundles/metronicadmin/themes/layout5/scripts/*'%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %} #}
+
+  
+
+
+    {% block pageLevelJSPlugins %}{% endblock %}
+
+    <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/app.min.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('bundles/eeoapi/app/app.module.js') }}"></script>
+    <script src="{{ asset('bundles/eeoapi/app/components/keyEvents.directives.js') }}"></script>
+    <script src="{{ asset('bundles/eeoapi/app/components/course.controller.js') }}"></script>
+
+    {% block pageLevelJS %}{% endblock %}
+
+    <script src="{{ asset('bundles/metronicadmin/themes/layouts/layout5/scripts/layout.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/layouts/global/scripts/quick-nav.min.js') }}" type="text/javascript"></script>
+
+</body>
+</html>

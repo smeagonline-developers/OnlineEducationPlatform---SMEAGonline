@@ -1,0 +1,288 @@
+{% extends 'EeoWebBundle::layout.html.twig' %}
+
+{% block title %} 轮廓{% endblock %}
+{% block pageLevelCSSPlugins %}
+    <link rel="stylesheet"  type="text/css" href="{{ asset('bundles/eeoweb/css/md-font.css') }}" />
+    <link rel="stylesheet"  type="text/css" href="{{ asset('bundles/eeoweb/css/style.css') }}" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+
+
+    <!-- COURSE CONCERN -->
+    <section id="course-concern" class="course-concern">
+        <div class="container">
+           {#  <div class="row">
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">100%<i class="fa fa-trophy"></i></div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">75%</div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">100%<i class="fa fa-trophy"></i></div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">0%</div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">90%</div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">45%</div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">30%</div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    <!-- MC ITEM -->
+                    <div class="mc-learning-item mc-item mc-item-2">
+                        <div class="image-heading">
+                            <img src="images/feature/img-1.jpg" alt="">
+                        </div>
+                        <div class="meta-categories"><a href="#">Web design</a></div>
+                        <div class="content-item">
+                            <div class="image-author">
+                                <img src="images/avatar-1.jpg" alt="">
+                            </div>
+                            <h4><a href="course-intro.html">Advanced Tactics with Hoot Suite Pro</a></h4>
+                            <div class="name-author">
+                                By <a href="#">Name of Mr or Mrs</a>
+                            </div>
+                        </div>
+                        <div class="ft-item">
+                            <div class="percent-learn-bar">
+                                <div class="percent-learn-run"></div>
+                            </div>
+                            <div class="percent-learn">10%</div>
+                            <a href="#" class="learnnow">Learn now<i class="fa fa-play-circle-o"></i></a>
+                        </div>
+                    </div>
+                    <!-- END / MC ITEM -->
+                </div>         
+            </div> #}
+                <div class="page-content-col account">
+                                <!-- BEGIN PAGE BASE CONTENT -->
+                                <div class="row">
+                                    <div class="content">
+                                        <div class="portlet light portlet-fit bordered calendar">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class=" icon-layers font-green"></i>
+                                                    <span class="caption-subject font-green sbold uppercase">Calendar</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-12">
+                                                        <!-- BEGIN DRAGGABLE EVENTS PORTLET-->
+                                                        <h3 class="event-form-title margin-bottom-20">Draggable Events</h3>
+                                                        <div id="external-events">
+                                                            <form class="inline-form">
+                                                                <input type="text" value="" class="form-control" placeholder="Event Title..." id="event_title" />
+                                                                <br/>
+                                                                <a href="javascript:;" id="event_add" class="btn green"> Add Event </a>
+                                                            </form>
+                                                            <hr/>
+                                                            <div id="event_box" class="margin-bottom-10"></div>
+                                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline" for="drop-remove"> remove after drop
+                                                                <input type="checkbox" class="group-checkable" id="drop-remove" />
+                                                                <span></span>
+                                                            </label>
+                                                            <hr class="visible-xs" /> </div>
+                                                        <!-- END DRAGGABLE EVENTS PORTLET-->
+                                                    </div>
+                                                    <div class="col-md-9 col-sm-12">
+                                                        <div id="calendar" class="has-toolbar"> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END PAGE BASE CONTENT -->
+                            </div>
+        </div>
+    </section>
+    <!-- END / COURSE CONCERN -->
+
+     
+{% endblock %}
+    
+{% block pageLevelJSPlugins %}
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/moment.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/fullcalendar/fullcalendar.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block pageLevelScripts %}
+    <script src="{{ asset('bundles/metronicadmin/themes/apps/scripts/calendar.min.js') }}" type="text/javascript"></script>
+{% endblock %}

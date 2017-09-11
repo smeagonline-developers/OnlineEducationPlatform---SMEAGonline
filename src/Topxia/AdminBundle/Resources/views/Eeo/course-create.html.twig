@@ -1,0 +1,157 @@
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'dashboard' %}
+{% set script_controller = 'default/index' %}
+
+{% block pageLevelCSSPlugin %}
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/jstree/dist/themes/default/style.min.css') }} " rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/add-ons.css') }} " rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+     <div class="container-fluid">
+                <div class="page-content">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <div class="breadcrumbs">
+                        <h1>创建课程</h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="#">管理</a>
+                            </li>
+                            <li>
+                                <a href="#">eeo</a>
+                            </li>
+                            <li class="active">创建课程</li>
+                        </ol>
+                        <!-- Sidebar Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- Sidebar Toggle Button -->
+                    </div>
+                    <!-- END BREADCRUMBS -->
+                    <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
+                    <div class="page-content-container">
+                        <div class="page-content-row">
+
+                            {% for msg in app.session.flashbag.get('notice') %}
+                                <div class="alert alert-{{ msg.type }}">
+                                    <strong>{{ msg.title }}</strong><br/>{{ msg.message }}
+                                </div>
+                            {% endfor %}
+                            
+                                        <div class="portlet-body form">
+                                            <form action="{{ path('admin_partner_courseCreate') }}" class="form-horizontal coverPhotoCourse" id = "courseCreate">
+                                                <div class="form-body">
+                                                   <div class="form-group">
+                                                         <input type="file" class = "dropzone dropzone-file-area" id="my-dropzone" style = "width: 540px; margin-top: 50px;"/>
+                                                   </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label"></label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" placeholder="课程名称" value="" name = "name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label"> </label>
+                                                        <div class="col-md-4">
+                                                            <textarea class="form-control" style = "height:150px;" placeholder="">
+                                                            </textarea>课程简介
+                                                        </div>
+                                                    </div>
+                                                     <div class="form-group">
+                                                        <label class="col-md-4 control-label"></label>
+                                                        <div class="col-md-2">
+                                                            <a data-toggle="modal" href="#small" class = "btn green resources">课程资源</a>
+                                                           <p>课程资源</p>
+
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                             <input type="text" class="form-control" placeholder="">
+                                                             课程有效期
+                                                        </div>
+                                                    </div>
+                                                   
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-7 col-md-7">
+                                                            <button type="submit" class="btn green">Save</button>
+                                                            <button type="button" class="btn default">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM-->
+                                        </div>
+                                                    </div>
+                                                    <div class="modal fade bs-modal-sm" id="small" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                <h4 class="modal-title">选择资源</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    
+
+              
+
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn green">确定</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+
+
+                      
+                        </div>
+                        <!-- BEGIN FOOTER -->
+                        <p class="copyright"> 2016 &copy; Metronic Theme By
+                            <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                            <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                        </p>
+                        <a href="#index" class="go2top">
+                            <i class="icon-arrow-up"></i>
+                        </a>
+                        <!-- END FOOTER -->
+                    </div>
+
+
+                    <script type="text/javascript">
+                        jQuery(document).ready(function($) {
+
+                            $('#courseCreate').submit(function(event) {
+
+                                var courseName = $("#courseName").val();
+
+                                var actionPath = $(this).attr("action");
+                                    actionPath = actionPath+"?name="+courseName;
+                                console.log(courseName);
+                                console.log(actionPath);
+                                window.location.href(actionPath);
+                                // event.preventDefault();
+                            });
+                        });
+                    </script>
+ 
+            
+{% endblock %}
+
+{% block pageLevelJSPlugins %}
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/jstree/dist/jstree.min.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block pageLevelJS %}
+    <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/ui-tree.min.js') }}" type="text/javascript"></script>
+{% endblock %}

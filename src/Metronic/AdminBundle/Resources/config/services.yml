@@ -1,0 +1,4 @@
+services:
+#    metronic_admin.example:
+#        class: Metronic\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

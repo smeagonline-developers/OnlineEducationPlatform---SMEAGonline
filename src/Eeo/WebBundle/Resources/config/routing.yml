@@ -1,0 +1,8 @@
+eeo_web_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EeoWebBundle:Default:index }
+
+eeo_web_account:
+    path:     /account/{name}
+    defaults: { _controller: EeoWebBundle:Account:index }
+

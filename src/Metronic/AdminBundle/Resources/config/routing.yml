@@ -1,0 +1,11 @@
+# metronic_admin_homepage:
+#     path:     /hello/{name}
+#     defaults: { _controller: MetronicAdminBundle:Default:index }
+
+# admin:
+#     pattern:  /
+#     defaults: { _controller: TopxiaAdminBundle:Default:index }
+
+admin_metronic:
+    pattern:  /metronic
+    defaults: { _controller: MetronicAdminBundle:Default:index }

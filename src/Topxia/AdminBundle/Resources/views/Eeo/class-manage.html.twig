@@ -1,0 +1,652 @@
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'dashboard' %}
+{% set script_controller = 'default/index' %}
+{% block content %}
+ <link rel="stylesheet" href="{{ asset('bundles/topxiaadmin/themes/pages/css/search.min.css') }}" />
+
+     <div class="container-fluid">
+                <div class="page-content">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <div class="breadcrumbs">
+                        <h1>全部课节</h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="#">管理</a>
+                            </li>
+                            <li>
+                                <a href="#">eeo</a>
+                            </li>
+                            <li class="active">课堂管理</li>
+                        </ol>
+                        <!-- Sidebar Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- Sidebar Toggle Button -->
+                    </div>
+                    <!-- END BREADCRUMBS -->
+                    <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
+                    <div class="page-content-container">
+                        <div class="page-content-row">
+                            <!-- BEGIN PAGE SIDEBAR -->
+                          {#   <div class="page-sidebar">
+                               
+                                    <div class="search-filter bordered">
+                                        <div class="search-label uppercase">Search By</div>
+                                        <div class="input-icon right">
+                                            <i class="icon-magnifier"></i>
+                                            <input type="text" class="form-control" placeholder="Filter by keywords"> </div>
+                                        <div class="search-label uppercase">Sort By</div>
+                                        <select class="form-control">
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                            <option>Option 4</option>
+                                            <option>Option 5</option>
+                                        </select>
+                                        <div class="search-label uppercase">Date</div>
+                                        <div class="input-icon right">
+                                            <i class="icon-calendar"></i>
+                                            <input class="form-control date-picker" type="text" placeholder="Any Date" /> </div>
+                                            <br>
+                                        <button class="btn green bold uppercase btn-block">Update Search Results</button>
+                                        <div class="search-filter-divider bg-grey-steel"></div>
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <button class="btn grey bold uppercase btn-block">Reset Search</button>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <button class="btn grey-cararra font-blue bold btn-block">Advanced Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> #}
+
+                            <!-- END PAGE SIDEBAR -->
+                            <div class="page-content-col">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption font-dark">
+                                                    <i class="icon-settings font-dark"></i>
+                                                    <span class="caption-subject bold uppercase"> 管理班级名单</span>
+                                                </div>
+                                               {#  <div class="actions">
+                                                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                        <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
+                                                            <input type="radio" name="options" class="toggle" id="option1">Actions</label>
+                                                        <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                                            <input type="radio" name="options" class="toggle" id="option2">Settings</label>
+                                                    </div>
+                                                </div> #}
+                                            </div>
+
+                                           
+                                               {#  <div class="table-toolbar">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="btn-group">
+                                                                <button id="sample_editable_1_new" class="btn sbold green"> Add New
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="btn-group pull-right">
+                                                                <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu pull-right">
+                                                                    <li>
+                                                                        <a href="javascript:;">
+                                                                            <i class="fa fa-print"></i> Print </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:;">
+                                                                            <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:;">
+                                                                            <i class="fa fa-file-excel-o"></i> Export to Excel </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> #}
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </th>
+                                                            <th> 序列号 </th>
+                                                            <th> 班级名称 </th>
+                                                            <th> 课程名称 </th>
+                                                            <th> 部分状态 </th>
+                                                            <th> 开始日期 </th>
+                                                            <th> 时间 </th>
+                                                            <th> 持续时间 </th>
+                                                            <th> 讲师 </th>
+                                                            <th> 学生人数在上课 </th>
+                                                            <th> 听 </th>
+                                                            <th> 人数在舞台上 </th>
+                                                            <th> 课程资源 </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 1 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-primary"> has not started </span> </td>
+                                                            <td> <a href="mailto:shuxer@gmail.com"> 2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td> MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> A2 Alignment
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 2 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-success">having a class</span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com">2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>  MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 3 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-primary"> has not started </span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com">2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>  MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 4 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-primary"> has not started </span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com">2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td> MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 5 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-primary"> has not started </span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com">2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>  MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 6 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-success"> having a class</span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com"> 2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>  MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 7 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-success"> having a class </span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com"> 2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>  MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 8 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-success"> having a class </span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com"> 2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>  MAYOL, JADE | 23633332045</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 9 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-danger"> over </span> </td>
+                                                            <td> <a href="mailto:shuxer@gmail.com">2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td> DALIGDIG,JENNNIFER | 23633332047</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                         <tr class="odd gradeX">
+                                                            <td>
+                                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                                    <input type="checkbox" class="checkboxes" value="1" />
+                                                                    <span></span>
+                                                                </label>
+                                                            </td>
+                                                            <td> 10 </td>
+                                                            <td>Noah - 29</td>
+                                                            <td>Noah</td>
+                                                            <td class="center"><span class="label label-sm label-warning"> class break </span> </td>
+                                                            <td><a href="mailto:shuxer@gmail.com">2017-09-27</td>
+                                                            <td>22:00</td>
+                                                            <td>25 minutes</td>
+                                                            <td>   BUQUIA, JENINE | 23633332049</a></td>
+                                                            <td>1</td>
+                                                            <td>0</td>
+                                                            <td>1v1</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu pull-left" role="menu">
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-docs"></i> New Post </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-tag"></i> New Comment </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-user"></i> New User </a>
+                                                                        </li>
+                                                                        <li class="divider"> </li>
+                                                                        <li>
+                                                                            <a href="javascript:;">
+                                                                                <i class="icon-flag"></i> Comments
+                                                                                <span class="badge badge-success">4</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <!-- END EXAMPLE TABLE PORTLET-->
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR CONTENT LAYOUT -->
+                </div>
+                <!-- BEGIN FOOTER -->
+                <p class="copyright"> 2016 &copy; Metronic Theme By
+                    <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                    <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                </p>
+                <a href="#index" class="go2top">
+                    <i class="icon-arrow-up"></i>
+                </a>
+                <!-- END FOOTER -->
+            </div>
+
+            <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/datatable.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/datatables/datatables.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/search.min.js') }}"></script>
+{% endblock %}
