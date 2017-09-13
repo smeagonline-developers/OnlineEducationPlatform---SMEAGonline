@@ -113,7 +113,7 @@ class BaseController extends Controller
       			   $this->eeo->buildRequest($this->apiFileAddress . "?action=getCourseClass", $param);
         $request = $this->eeo->postRequest();
 
-        return array($request->data);
+        return $request->data;
 	}
 
 	public function getTeacherList() {

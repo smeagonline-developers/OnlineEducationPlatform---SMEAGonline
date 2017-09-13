@@ -3,6 +3,7 @@ namespace Eeo\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Eeo\ApiBundle\Controller\BaseController as EeoBaseController;
+use Eeo\ApiBundle\Controller\TeacherController as Teacher;
 use Eeo\ApiBundle\Classes\EeoOAuthClient as EeoAuthentication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,8 @@ class CourseClassController extends BaseController
 	public $eeo;
 
     public $base;
+
+    public $teachers;
     
     public function __construct() {
 
@@ -30,9 +33,16 @@ class CourseClassController extends BaseController
     public function getCourseClassAction($courseId) {
 
     	$courseClass = $this->base->getList(SELF::NAME, array('param' => ['courseId' => $courseId]));
-    	$courseClass = ($courseClass->error_info->errno == 106) ? null : $courseClass->data ;
+    	$courseClass = ($courseClass->error_info->errno == 106) ? null : $courseClass;
 
-        return $this->render('EeoWebBundle:classIn:course-class.html.twig', ['courseClass' => $courseClass,'courseId' => $courseId]);
+    	$teacher 		= new Teacher();
+    	$teacher 		 = $teacher->getTeacherList();
+
+ 		$lessonTeachers = $this->getUniqueArray($courseClass->data, 'teacher_account') ;
+    
+        return $this->render('EeoWebBundle:classIn:course-class.html.twig', [ 'courseId' => $courseId, 'courseClass' => $courseClass->data,
+																	'teachers'	=> $teacher, 'lessonTeachers' =>$lessonTeachers
+																]);
 	}
 
 	public function editCourseClassAction($courseId, $classId) {
@@ -96,5 +106,24 @@ class CourseClassController extends BaseController
 	*	Get information at the time a member of the class festival attendance
 	*/
 	public function getClassMemberTimeDetailsAction(){}	
+
+
+	public function getUniqueArray( $data, $getKeyOfArrayIndex ) { 
+
+		$counters = 0; 
+		$setKey						= []; 
+	    $setTemporaryArrayObject 	= []; 
+	   
+	    foreach( $data as $val ) { 
+	        if ( !in_array( $val->$getKeyOfArrayIndex, $setKey ) ) { 
+	            $setKey[ $counters ] = $val->$getKeyOfArrayIndex; 
+	            $setTemporaryArrayObject[ $counters ] = $val; 
+	        } 
+	        $counters++; 
+	    } 
+	    $getArrayOfUniqResult = $setTemporaryArrayObject;
+
+	    return $getArrayOfUniqResult; 
+	} 
 	
 }

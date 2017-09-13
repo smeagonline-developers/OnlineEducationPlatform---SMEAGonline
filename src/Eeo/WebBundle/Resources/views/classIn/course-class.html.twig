@@ -205,15 +205,15 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
                                         </span>
                                     </div>
                                     <div class="portlet-body teachers"> 
-                                        {% if courseClass %}
-                                            {% for class in courseClass %}
+                                        {% if lessonTeachers %}
+                                            {% for lesson in lessonTeachers %}
                                                 <div class="mt-author">
                                                     <div class="mt-avatar">
                                                         <img src="{{ asset("https://www.eeo.cn/upload/images/20170818/af8d05c54a60d7004483_50.jpg") }}" />
                                                     </div>
                                                     <div class="mt-author-name">
-                                                        <div><a href="javascript:;" class="font-blue-madison">{{ class.teacher_name }}</a></div>
-                                                        <div class="mt-author-notes font-grey-mint">{{class.teacher_account}}</div>
+                                                        <div><a href="javascript:;" class="font-blue-madison">{{ lesson.teacher_name }}</a></div>
+                                                        <div class="mt-author-notes font-grey-mint">{{lesson.teacher_account}}</div>
                                                     </div>
                                                 </div> 
                                             {% endfor %} 
@@ -263,7 +263,6 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {# {{dump(courseClass)}} #}
                                                     {% if courseClass %}
                                                         {% for class in courseClass %}
                                                             <tr class="odd gradeX">

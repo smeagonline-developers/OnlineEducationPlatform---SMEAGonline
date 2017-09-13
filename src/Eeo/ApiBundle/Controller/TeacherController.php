@@ -28,7 +28,7 @@ class TeacherController extends Controller
         $this->apiFileAddress 	= SELF::COURSE_FILE;
     }
     
-    public function getTeacherListAction() {
+    public function getTeacherList() {
 
         $param = $this->eeo->getParameters();
         $createRequest = $this->eeo->buildRequest($this->apiFileAddress . "?action=getTeacherList", $param);

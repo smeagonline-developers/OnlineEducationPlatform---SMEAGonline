@@ -100,8 +100,6 @@ class CourseController extends BaseController
         $createRequest = $this->eeo->buildRequest("/course.api.php?action=delCourse", $param);
         $request = $this->eeo->postRequest();
 
-        var_dump($request);exit;
-
         $getResponse = $request->error_info->errno;
         if ($getResponse == 149) {
 
