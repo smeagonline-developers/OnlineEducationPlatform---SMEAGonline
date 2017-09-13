@@ -37,62 +37,7 @@ class EeoController extends BaseController
     /*
     *    创建课程
     */
-    public function courseCreateAction() {
-        
-        $formRequest = Request::createFromGlobals();
-        $courseName = $formRequest->query->get('name');
-      
-        if(isset($courseName) && $courseName != null) {
-            
-            $param = $this->eeo->getParameters();
-            $param["courseName"] = $courseName;
-
-            $this->eeo->buildRequest("/course.api.php?action=addCourse", $param);
-            $request = $this->eeo->postRequest();
-
-            $this->get('session')->getFlashBag()->add('notice', array('type' => 'success', 'title' => 'Course Created!', 'message' => 'You have successfully created new course!'));
-
-            $newCreatedCourseId = $request->data;
-            $response = $request->error_info->errno;
-
-            return $this->render('TopxiaAdminBundle:Eeo:course-create.html.twig'); 
-        }
-
-        return $this->render('TopxiaAdminBundle:Eeo:course-create.html.twig'); 
-    }
-
-    /*
-    *    课程编辑
-    */
-    public function courseEditAction($courseId) {
-
-        $param = $this->eeo->getParameters();
-        $param["courseId"] = $courseId;
-
-        $createRequest = $this->eeo->buildRequest("/course.api.php?action=getCourseInfo", $param);
-        $request = $this->eeo->postRequest();
-
-        return $this->render('TopxiaAdminBundle:Eeo:course-edit.html.twig', array('course' => $request->data, 'resources' => "a"));
-    }
-
     
-    /*
-    *    课程删除
-    */
-    public function courseDeleteAction($courseId) {
-
-        $param = $this->eeo->getParameters();
-        $param["courseId"] = $courseId;
-
-        $createRequest = $this->eeo->buildRequest("/course.api.php?action=delCourse", $param);
-        $request = $this->eeo->postRequest();
-
-        $getResponse = $request->error_info->errno;
-        if ($getResponse == 149) {
-
-            return $this->redirect($this->generateUrl('admin_partner_courseManage'));
-        }
-    }
     
     /*
     *    课程列表

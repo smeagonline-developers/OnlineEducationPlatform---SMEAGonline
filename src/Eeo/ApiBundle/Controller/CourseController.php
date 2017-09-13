@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Eeo\ApiBundle\Controller\BaseController as EeoBaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Eeo\ApiBundle\Classes\EeoOAuthClient as EeoAuthentication;
 
 class CourseController extends BaseController
 {   
@@ -17,20 +18,23 @@ class CourseController extends BaseController
     CONST NAME = "course";
 
     public $base;
+
+    public $eeo;
     
     public function __construct() {
 
         $this->base = new EeoBaseController();
+
     }
 
     /*
-    *    课程列表
+    *    Get a list of courses
     */
     public function getCourseListAction(){
 
         $course = $this->base->getList(SELF::NAME);
 
-        return $this->render('TopxiaAdminBundle:Eeo:course-manage.html.twig',
+        return $this->render('EeoWebBundle:classIn:course-list.html.twig',
                     array( SELF::NAME => $course->data
                 ));
     }
@@ -41,9 +45,9 @@ class CourseController extends BaseController
 	public function getCourseInfoAction(){}
 
     /*
-    *    创建课程
+    *    Creating a course
     */
-    public function courseCreateAction() {
+    public function addCourseAction() {
         
         $formRequest = Request::createFromGlobals();
         $courseName = $formRequest->query->get('name');
@@ -64,28 +68,31 @@ class CourseController extends BaseController
             return $this->render('TopxiaAdminBundle:Eeo:course-create.html.twig'); 
         }
 
-        return $this->render('TopxiaAdminBundle:Eeo:course-create.html.twig'); 
+        return $this->render('TopxiaAdminBundle:Eeo:add-course.html.twig'); 
     }
 
     /*
-    *    课程编辑
+    *    Editing course
     */
-    public function courseEditAction($courseId) {
-
+    public function editCourseAction($courseId) {
+        
+        $this->eeo = new EeoAuthentication();
+        
         $param = $this->eeo->getParameters();
         $param["courseId"] = $courseId;
 
-        $createRequest = $this->eeo->buildRequest("/course.api.php?action=getCourseInfo", $param);
+        $createRequest = $this->eeo->buildRequest("/course.api.php?action=editCourse", $param);
         $request = $this->eeo->postRequest();
 
-        return $this->render('TopxiaAdminBundle:Eeo:course-edit.html.twig', array('course' => $request->data, 'resources' => "a"));
+        return $this->getCourseListAction();
     }
-
     
     /*
-    *    课程删除
+    *    Delete Course
     */
-    public function courseDeleteAction($courseId) {
+    public function delCourseAction($courseId) {
+
+        $this->eeo = new EeoAuthentication();
 
         $param = $this->eeo->getParameters();
         $param["courseId"] = $courseId;
@@ -93,11 +100,13 @@ class CourseController extends BaseController
         $createRequest = $this->eeo->buildRequest("/course.api.php?action=delCourse", $param);
         $request = $this->eeo->postRequest();
 
+        var_dump($request);exit;
+
         $getResponse = $request->error_info->errno;
         if ($getResponse == 149) {
 
-            return $this->redirect($this->generateUrl('admin_partner_courseManage'));
+            return $this->getCourseListAction();
         }
     }
-    
+
 }

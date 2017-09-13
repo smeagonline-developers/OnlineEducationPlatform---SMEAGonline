@@ -1,38 +1,34 @@
-# eeo_api_homepage:
-#     path:     /eeo/api/{name}
-#     defaults: { _controller: EeoApiBundle:Default:index }
+# partner_getCourseList:
+#     pattern:  /partner/course/list
+#     defaults: { _controller: EeoApiBundle:Course:getCourseList }
 
-partner_getCourseList:
-    pattern:  /partner/course/list
-    defaults: { _controller: EeoApiBundle:Course:getCourseList }
-
-partner_getTeacherList:
-    pattern:  /partner/teacher/list
-    defaults: { _controller: EeoApiBundle:Teacher:getTeacherList }
+# partner_getTeacherList:
+#     pattern:  /partner/teacher/list
+#     defaults: { _controller: EeoApiBundle:Teacher:getTeacherList }
 
 
 
-partner_courseCreate:
-    pattern:  /partner/course/create
-    defaults: { _controller: TopxiaAdminBundle:Eeo:courseCreate }
+# partner_courseCreate:
+#     pattern:  /partner/course/create
+#     defaults: { _controller: TopxiaAdminBundle:Eeo:courseCreate }
 
-partner_courseEdit:
-    pattern:  /partner/course/edit/{courseId}
-    defaults: { _controller: TopxiaAdminBundle:Eeo:courseEdit }
+# partner_courseEdit:
+#     pattern:  /partner/course/edit/{courseId}
+#     defaults: { _controller: TopxiaAdminBundle:Eeo:courseEdit }
 
-partner_courseDelete:
-    pattern:  /partner/course/delete/{courseId}
-    defaults: { _controller: TopxiaAdminBundle:Eeo:courseDelete }
+# partner_courseDelete:
+#     pattern:  /partner/course/delete/{courseId}
+#     defaults: { _controller: TopxiaAdminBundle:Eeo:courseDelete }
 
 
-partner_getCourseClass:
-    pattern:  /partner/{courseId}/class
-    defaults: { _controller: EeoApiBundle:CourseClass:getCourseClass }
+# partner_getCourseClass:
+#     pattern:  /partner/{courseId}/class
+#     defaults: { _controller: EeoApiBundle:CourseClass:getCourseClass }
 
-partner_editCourseClass:
-    pattern:  /partner/{courseId}/class/edit/{classId}
-    defaults: { _controller: EeoApiBundle:CourseClass:editCourseClass }
+# partner_editCourseClass:
+#     pattern:  /partner/{courseId}/class/edit/{classId}
+#     defaults: { _controller: EeoApiBundle:CourseClass:editCourseClass }
 
-partner_courseClassRemove:
-    pattern:  /partner/course/lesson/remove/{classId}/{courseId}
-    defaults: { _controller: TopxiaAdminBundle:Eeo:courseLessonRemove }
+# partner_courseClassRemove:
+#     pattern:  /partner/course/lesson/remove/{classId}/{courseId}
+#     defaults: { _controller: TopxiaAdminBundle:Eeo:courseLessonRemove }

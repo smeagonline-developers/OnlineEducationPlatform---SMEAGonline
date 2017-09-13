@@ -1,0 +1,889 @@
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'course-lesson-list' %}
+{# {% set script_controller = 'default/index' %} #}
+
+
+{% block pageLevelCSSPlugin %}
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css') }}" />
+    <link href="{{ asset('bundles/metronicadmin/themes/apps/css/todo.min.css" rel="stylesheet" type="text/css') }}" />
+    <style type="text/css">
+         .portlet-body.teachers {
+        width: 100%;
+        font-size: 10px;
+    }
+    .portlet-body.teachers > .mt-author > div {
+        width: 25%;
+            height: 30px;
+          display: inline-block;
+    }
+    .portlet-body.teachers > .mt-author > div.mt-author-name {
+        width:63%;
+    }
+
+    .mt-avatar img {
+            margin-top: -25px;
+        width: 38px;
+        border-radius: 100px !important;
+    }
+    .details {
+    text-align: left;
+}
+    a.teacher > div {
+    width: 30%;
+    display: inline-block;
+}
+
+a.teacher img {
+    vertical-align: unset;
+    height: 30px;
+    border-radius: 3px !important;
+}
+.createLessons a{border : 0;}
+.createLessons {
+    float: right;
+    margin-top: 40px;
+}
+table tr th {
+    font-weight: bold;
+}
+table, table tr th {
+    text-align: center;
+}
+table#sample_1 a {
+    color: #000;
+    font-size: 11px;
+    text-decoration: none;
+}
+table#sample_1 a.label-danger{
+color:#fff; 
+}
+.isChecked span {
+    color: #32c5d2!important;
+    font-size: 15px;
+    float: left;
+    position: relative;
+    left: 20px;
+    top: 10px;
+}
+.modal-title, .modal-body {
+    text-align: left;
+}
+.modal-dialog{
+    margin-top: 200px;
+}
+.modal-dialog label {
+    color: #8e8e8e;
+}
+.courseLessonPopups .form-control,
+.courseLessonPopups{
+    font-size: 11px;
+}
+
+.courseLessonPopups{
+        padding: 20px 0 10px;
+    font-size: 11px;
+}
+.courseLessonPopups .fa.fa-question-circle{
+    float: right;
+    margin-right: 125px;
+    margin-top: 10px;
+    font-size: 18px;
+}
+span.todo-float-r {
+    color: #98b7c1;
+    float: right;
+    font-size: 13px;
+    display: inline-block;
+}
+a.todo-add-button:hover{
+    background-color: #98b7c1;
+    color: #fff;
+    text-decoration: none;
+}
+a.todo-add-button {
+     border: 1px solid #98b7c1;
+    color: #c1cbd1;
+    text-decoration: none;
+    padding: 0 .4em;
+    font-size: 13px;
+    margin: -.3em 0 0 .5em;
+    float: right;
+}
+.portlet.light.portlet-fit>.portlet-title{
+    background: #6c7b88;
+    color: #98b7c1;
+    font-size: 13px;
+    border: 0;
+}
+.note {
+    border: 2px solid #20b2aa;
+    font-size: 10px;
+    background: rgb(255, 250, 240);
+    width: 325px;
+    position: absolute;
+    top: 20px;
+    right: -185px;
+    display: none;
+}
+i.fa.fa-question-circle:hover > .note{
+    display: block;
+}
+form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
+    position: relative;
+    left: 30px;
+}
+.modal-footer {
+    padding:10px;
+}
+.modal-footer button{
+        padding: 3px 25px;
+}
+                                                                .teacherlist > div {
+                                                                    width: 50%;
+                                                                    float: left;
+                                                                }
+
+                                                                .teacherlist {
+                                                                    width: 100%;
+                                                                }
+.input-group.input-large > div {
+    width: 30%;
+    float: left;
+}
+
+    </style>
+{% endblock %}
+
+{% block content %}
+     <div class="container-fluid">
+                <div class="page-content">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <div class="breadcrumbs">
+                        <h1 class = "font-blue bold">课节信息</h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="#">课程管</a>
+                            </li>
+                            <li>
+                                <a href="#">理蒲奕含Harry</a>
+                            </li>
+                            <li class="active">课节信息</li>
+                        </ol>
+                        <!-- Sidebar Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- Sidebar Toggle Button -->
+                        <div class="createLessons">
+                            <a class="btn btn-success" href="#create-lessons" data-toggle="modal"><i class="fa fa-plus"></i> Add a section lesson</a>
+                            <a class="btn btn-success" href="#create-lessons" data-toggle="modal"><i class="fa fa-plus"></i> Add batch section lesson</a>
+                        </div>
+                    </div>
+                    <!-- END BREADCRUMBS -->
+
+                    <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
+                    <div class="page-content-container">
+                        <div class="page-content-row">
+                            <div class="page-sidebar">
+                                {# 成员列表 #}
+                                <div class="portlet mt-element-ribbon light portlet-fit bordered">
+                                    <div class="portlet-title">
+                                        <i class=" icon-user font-blue"></i>
+                                        <span class="font uppercase">成员列表</span>
+                                         <span class="todo-inline todo-float-r">3 会员
+                                            <a class="todo-add-button" href="#todo-teacher-modal" data-toggle="modal">+</a>
+                                        </span>
+                                    </div>
+                                    <div class="portlet-body teachers"> 
+                                        {% if courseClass %}
+                                            {% for class in courseClass %}
+                                                <div class="mt-author">
+                                                    <div class="mt-avatar">
+                                                        <img src="{{ asset("https://www.eeo.cn/upload/images/20170818/af8d05c54a60d7004483_50.jpg") }}" />
+                                                    </div>
+                                                    <div class="mt-author-name">
+                                                        <div><a href="javascript:;" class="font-blue-madison">{{ class.teacher_name }}</a></div>
+                                                        <div class="mt-author-notes font-grey-mint">{{class.teacher_account}}</div>
+                                                    </div>
+                                                </div> 
+                                            {% endfor %} 
+                                        {% endif %}
+                                    </div>
+
+                                   
+
+                                </div>
+                                {# 课程学生 #}
+                                <div class="portlet mt-element-ribbon light portlet-fit bordered">
+                                    <div class="portlet-title">
+                                        <i class=" icon-user font-blue"></i>
+                                        <span class="font uppercase">课程学生</span>
+                                         <span class="todo-inline todo-float-r">0 会员
+                                            <a class="todo-add-button" href="#todo-teacher-modal" data-toggle="modal">+</a>
+                                        </span>
+                                    </div>
+                                    <div class="portlet-body students"> 
+                                    </div>
+                                </div>
+                            </div> 
+
+                                
+
+                            <!-- END PAGE SIDEBAR -->
+                            <div class="page-content-col">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                <table ng-controller = "CourseController" class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> 序号 </th>
+                                                            <th> 课节名称 </th>
+                                                            <th> 开课日期 </th>
+                                                            <th> 时间 </th>
+                                                            <th> 时长</th>
+                                                            <th> 授课老师 </th>
+                                                            <th> 插班生 </th>
+                                                            <th> 调出生 </th>
+                                                            <th> 台上人数 </th>
+                                                            <th> 课节资源 </th>
+                                                            <th> 直播 </th>
+                                                            <th> 回放 </th>
+                                                            <th> 操作	 </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {# {{dump(courseClass)}} #}
+                                                    {% if courseClass %}
+                                                        {% for class in courseClass %}
+                                                            <tr class="odd gradeX">
+                                                                <td> {{ loop.index }} </td>
+                                                                <td>
+                                                                    <a data-toggle="modal" href="#className-{{class.class_id}}" data-clId = "{{class.class_id}}" data-coId = "{{courseId}}">{{ class.class_name }}</a>
+                                                                     <div id="className-{{class.class_id}}" class="modal fade" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h5 class="modal-title">编辑课节名称</h5>
+                                                                                </div>
+                                                                                <div class="modal-body" >
+                                                                                    {# action = "{{ path('partner_editCourseClass', {'courseId': courseId, 'classId': class.class_id }) }}" #}
+                                                                                    <form action="#" class="form-horizontal courseClass" ng-submit = "editCourseClass($event)" >
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label col-md-2" >课节名称</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <i class="fa fa-question-circle">
+                                                                                                    <div class="note">
+                                                                                                        添加课节时，默认课节名称为课程名称加序号，未开始课节允许修改。与classin课节信息同步显示。
+                                                                                                    </div>
+                                                                                                </i>
+                                                                                                <div class="input-group input-large" id="defaultrange_modal">
+                                                                                                    <input type="text" class="form-control name" ng-model = "name"> 
+                                                                                                    <input type="text" hidden class = "courseId"><input type="text" hidden class = "classId"> 
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2" style = "position: relative;top: 12px;"   >变化方式</label>
+                                                                                            <div class="col-md-10">
+                                                                                               <p>
+                                                                                                    本节课变更名称为 :  {{ class.class_name }}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2">批量修改</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <label class="mt-checkbox"  style = "margin-top:8px;">
+                                                                                                      <input type="checkbox" name = "batchEdit">
+                                                                                                             <span></span>
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="col-md-10">
+                                                                                               <input class="btn dark btn-outline" data-dismiss="modal" aria-hidden="true" type="button" value="cancel" />
+                                                                                               <input class="btn green btn-primary saveClassName" type="submit" value="save" />
+                                                                                            </div>
+                                                                                        </div>  
+                                                                                    </form>
+                                                                                </div>
+                                                                                {# <div class="modal-footer">
+                                                                                    <button class="btn dark btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+                                                                                    <button class="btn green btn-primary saveClassName" data-dismiss="modal" data-href = "{{ path('partner_editCourseClass', {'courseId': courseId, 'classId': class.class_id }) }}" name= "saveClassName">Save changes</button>
+                                                                                </div> #}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a data-toggle="modal" href="#classDate-{{class.class_id}}">{{ class.class_date }}</a>
+                                                                    <div id="classDate-{{class.class_id}}" class="modal fade" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h5 class="modal-title">编辑课节日期</h5>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="#" class="form-horizontal courseLessonPopups">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label col-md-2" >开课日期</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <i class="fa fa-question-circle">
+                                                                                                    <div class="note">
+                                                                                                        > 开课日期
+                                                                                                       <p>课节的授课日期，课节未开始时允许单节或批量调整开课日期。</p> 
+                                                                                                    </div>
+                                                                                                </i>
+                                                                                                <div class="input-group input-large" id="defaultrange_modal">
+                                                                                                    <input id="thedate"class="form-control" type="text" value = "{{ class.class_date }}" /><br />
+                                                                                                    {# <input type="text"  class="form-control" name="daterange" value = "{{ class.class_date }}"/> #}
+                                                                                                    <span class="input-group-btn">
+                                                                                                        <button class="btn default date-range-toggle" type="button">
+                                                                                                            <i class="fa fa-calendar"></i>
+                                                                                                        </button>
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2" style = "position: relative;top: 12px;"   >变化方式</label>
+                                                                                            <div class="col-md-10">
+                                                                                               <p>
+                                                                                                   本节课推后 0 天
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2">批量修改</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <label class="mt-checkbox"  style = "margin-top:8px;">
+                                                                                                      <input type="checkbox">
+                                                                                                             <span></span>
+                                                                                                </label>
+                                                                                            </div>
+                                                                                        </div>  
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button class="btn dark btn-outline" data-dismiss="modal" aria-hidden="true">Close</button>
+                                                                                    <button class="btn green btn-primary" data-dismiss="modal">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td> 
+                                                                 <a data-toggle="modal" href="#classTime">{{ class.class_time|slice(11, -19)}} </a> 
+                                                                    <div id="classTime" class="modal fade" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h5 class="modal-title">编辑课节时间</h5>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="#" class="form-horizontal courseLessonPopups">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label col-md-2" >开课时间</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <i class="fa fa-question-circle">
+                                                                                                    <div class="note">
+                                                                                                        > 开课日期
+                                                                                                       <p>课节的授课日期，课节未开始时允许单节或批量调整开课日期。</p> 
+                                                                                                    </div>
+                                                                                                </i>
+                                                                                                <div class="input-group input-large">
+                                                                                                    <div>
+                                                                                                        <select class="form-control input-xsmall" id = "time">
+                                                                                                            {% set hour = 24 %}
+                                                                                                            {% for i in range(0, hour) %}
+                                                                                                               <option>{{ i }}</option>
+                                                                                                            {% endfor %}
+                                                                                                        </select> &nbsp;时
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                         <select class="form-control input-xsmall" id = "t">
+                                                                                                            {% set min = 60 %}
+                                                                                                            {% for i in range(0, min) %}
+                                                                                                               <option>{{ i }}</option>
+                                                                                                            {% endfor %}
+                                                                                                        </select> &nbsp;时
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2" style = "position: relative;top: 12px;"   >变化方式</label>
+                                                                                            <div class="col-md-10">
+                                                                                               <p>
+                                                                                                   本节课推后 0 分钟
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2">批量修改</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <label class="mt-checkbox"  style = "margin-top:8px;">
+                                                                                                      <input type="checkbox">
+                                                                                                             <span></span>
+                                                                                                </label>
+                                                                                            </div>
+                                                                                        </div>  
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button class="btn dark btn-outline" data-dismiss="modal" aria-hidden="true">取消</button>
+                                                                                    <button class="btn green btn-primary" data-dismiss="modal">确定</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a data-toggle="modal" href="#seatNum">{{class.class_time|slice(35)}}分钟</a>
+                                                                    
+                                                                     <div id="seatNum" class="modal fade" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h5 class="modal-title">编辑课节时长</h5>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="#" class="form-horizontal courseLessonPopups">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label col-md-2" >课节时长</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <i class="fa fa-question-circle">
+                                                                                                    <div class="note">
+                                                                                                        > 开课日期
+                                                                                                       <p>课节的授课日期，课节未开始时允许单节或批量调整开课日期。</p> 
+                                                                                                    </div>
+                                                                                                </i>
+                                                                                                <div class="input-group input-large">
+                                                                                                    <div>
+                                                                                                        <select class="form-control input-xsmall" id = "time">
+                                                                                                            {% set hour = 24 %}
+                                                                                                            {% for i in range(0, hour) %}
+                                                                                                               <option>{{ i }}</option>
+                                                                                                            {% endfor %}
+                                                                                                        </select> &nbsp; 小时 
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                         <select class="form-control input-xsmall" id = "t">
+                                                                                                            {% set min = 60 %}
+                                                                                                            {% for i in range(0, min) %}
+                                                                                                               <option>{{ i }}</option>
+                                                                                                            {% endfor %}
+                                                                                                        </select> &nbsp; 分钟
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2" style = "position: relative;top: 12px;"   >变化方式</label>
+                                                                                            <div class="col-md-10">
+                                                                                               <p>
+                                                                                                   本节课推后 0 分钟
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            
+                                                                                            <label class="control-label col-md-2">批量修改</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <label class="mt-checkbox"  style = "margin-top:8px;">
+                                                                                                      <input type="checkbox">
+                                                                                                             <span></span>
+                                                                                                </label>
+                                                                                            </div>
+                                                                                        </div>  
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button class="btn dark btn-outline" data-dismiss="modal" aria-hidden="true">取消</button>
+                                                                                    <button class="btn green btn-primary" data-dismiss="modal">确定</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a data-toggle="modal" href="#teacherAccount" class = "teacher">
+                                                                        <div>
+                                                                            <img src="{{ asset("https://www.eeo.cn/upload/images/20170818/af8d05c54a60d7004483_50.jpg") }}" />
+                                                                        </div>
+                                                                        <div class= "details">
+                                                                            <div>{{class.teacher_name}} </div>
+                                                                            <div>{{class.teacher_account}}</div>
+                                                                        </div>
+                                                                            
+                                                                    </a>
+                                                                    <div class="modal teacherAccount fade bs-modal-sm" id="teacherAccount" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-sm">
+                                                                            <div class="modal-content" style = "width:500px;height:10%;">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h4 class="modal-title">编辑课节授课老师</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div>
+                                                                                        教师总数 50 
+                                                                                        <input type = "text" id = "searchTeachers" placeholder = "手机号 / 姓名"> 
+                                                                                        <a href = "" id = "addTeacher">添加机构教师</a>
+                                                                                    </div>
+                                                                                    <div class = "teacherlist">
+                                                                                        <div class="listofteachers">fdsfsd</div>
+                                                                                        <div class="teacherAssign">
+                                                                                            {{ class.teacher_name }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div><input id="checkBox" type="checkbox"> 批量修改本节课及之后课节(共3节)的授课老师 </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                   
+                                                                                    <button type="button" class="delete btn green" data-href = "{{ path('partner_courseClassRemove', {'classId': class.class_id,
+                                                                                    'courseId': courseId }) }}">Save</button>
+                                                                                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <td>
+                                                                    <a data-toggle="modal" href="#intervene">添加</a>
+                                                                    <div class="modal intervene fade bs-modal-sm" id="intervene" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-sm">
+                                                                            <div class="modal-content" style = "width:500px;height:10%;">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h4 class="modal-title">编辑课节插班生列表</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div>
+                                                                                        学生总数 261
+                                                                                        <input type = "text" id = "intervene" placeholder = "手机号 / 姓名"> 
+                                                                                        <a href = "" id = "addTeacher">添加机构学生</a>
+                                                                                    </div>
+                                                                                    <div class = "teacherlist">
+                                                                                        <div class="listofteachers">候选项太多,请通过上方搜索栏检索.{# Too many candidates, please search through the search bar above. #}</div>
+                                                                                        <div class="teacherAssign">
+                                                                                        {#     {{ class.teacher_name }} #}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                   
+                                                                                    <button type="button" class="delete btn green" data-href = "{{ path('partner_courseClassRemove', {'classId': class.class_id,
+                                                                                    'courseId': courseId }) }}">Save</button>
+                                                                                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a data-toggle="modal" href="#tuneUp">选择</a>
+                                                                     <div class="modal tuneUp fade bs-modal-sm" id="tuneUp" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-sm">
+                                                                            <div class="modal-content" style = "width:500px;height:10%;">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h4 class="modal-title">编辑课节调出生列表</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div>
+                                                                                        <input type = "text" id = "tuneUp" placeholder = "手机号 / 姓名"> 
+                                                                                    </div>
+                                                                                    <div class = "teacherlist">
+
+                                                                                         <div class="imaeg">
+                                                                                                <img class="media-object" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" alt="64x64" data-src=" {{ asset('bundles/metronicadmin/themes/global/plugins/holder.js/64x64') }}" style="width: 64px; height: 64px;">
+                                                                                            </div>
+                                                                                        <div class="teacher">
+                                                                                            <div class = "name"></div>
+                                                                                            <div class = "accNo"></div>
+                                                                                            {{class.teacher_name}} {{class.teacher_account}}
+                                                                                        </div>
+                                                                                        <div class="teacherAssign">
+                                                                                        {#     {{ class.teacher_name }} #}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                   
+                                                                                    <button type="button" class="delete btn green" data-href = "{{ path('partner_courseClassRemove', {'classId': class.class_id,
+                                                                                    'courseId': courseId }) }}">Save</button>
+                                                                                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td><a data-toggle="modal" href="#small">{{ class.seat_num }}</a></td>
+                                                                {# <td><a data-toggle="modal" href="#small">ESL</a></td> #}
+                                                                <td class = "isChecked"> <span class="icon icon-size-18 icon-checked-true"></span><a data-toggle="modal" href="#record">
+                                                                {% if class.record == 1 %}
+                                                                   <i class=" icon-check font-green"></i>
+                                                                {% endif %}</td>
+                                                                <td class = "isChecked"> <span class="icon icon-size-18 icon-checked-true"> <a data-toggle="modal" href="#live"> {% if class.live == 1 %}
+                                                                   <i class=" icon-check font-green"></i>
+                                                                {% endif %}</td>
+                                                                <td class = "isChecked"> <span class="icon icon-size-18 icon-checked-true"> <a data-toggle="modal" href="#replay"> {% if class.replay == 1 %}
+                                                                   <i class=" icon-check font-green"></i>
+                                                                {% endif %}</td>
+                                                                <td>
+                                                                     <a data-toggle="modal" href="#small" class = "label label-danger">
+                                                                                 Delete </a>
+                                                                </td>
+                                                            </tr>
+
+                                                        {% endfor %} 
+                                                    {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            </div>    
+                                        </div>
+                                        <!-- END EXAMPLE TABLE PORTLET-->
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR CONTENT LAYOUT -->
+                </div>
+                <!-- BEGIN FOOTER -->
+                <p class="copyright"> 2016 &copy; Metronic Theme By
+                    <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                    <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                </p>
+                <a href="#index" class="go2top">
+                    <i class="icon-arrow-up"></i>
+                </a>
+                <!-- END FOOTER -->
+            </div>
+
+
+
+        {#  MODALS  #}
+        <div id="create-lessons" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Add a lesson</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Class name</label>
+                           <div class="input-group input-large">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Start Date</label>
+                            <div class="input-group input-large" id="defaultrange_modal">
+                                <input type="text"  class="form-control" name="daterange"/>
+                                <span class="input-group-btn">
+                                    <button class="btn default date-range-toggle" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Start time</label>
+                             <div class="input-group input-large">
+                                <div>
+                                    <select class="form-control input-xsmall" id = "time">
+                                        {% set hour = 23 %}
+                                        {% for i in range(0, hour) %}
+                                           <option>{{ i }}</option>
+                                        {% endfor %}
+                                    </select> &nbsp;时
+                                </div>
+                                <div>
+                                     <select class="form-control input-xsmall" id = "t">
+                                        {% set min = 55 %}
+                                        {% for i in range(0, min) %}
+                                           <option>{{ i }}</option>
+                                        {% endfor %}
+                                    </select> &nbsp;时
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Course length</label>
+                             <div class="input-group input-large">
+                                <div>
+                                    <select class="form-control input-xsmall" id = "time">
+                                        {% set hour = 23 %}
+                                        {% for i in range(0, hour) %}
+                                           <option>{{ i }}</option>
+                                        {% endfor %}
+                                    </select> &nbsp;时
+                                </div>
+                                <div>
+                                     <select class="form-control input-xsmall" id = "t">
+                                        {% set min = 55 %}
+                                        {% for i in range(0, min) %}
+                                           <option>{{ i }}</option>
+                                        {% endfor %}
+                                    </select> &nbsp;时
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Instructor</label>
+                            <div class="col-md-8">
+                               <a href="" class = "btn btn-success instructorsList">
+                                <span class="icon icon-size-16 icon-btn-plus"></span>
+                                Choose a teacher</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">The number of people on stage</label>
+                            <div class="col-md-8">
+                                <div class="input-group input-large">
+                                    <div>
+                                        <select class="form-control input-xsmall">
+                                            <option selected>1v1</option>
+                                            <option selected>1v2</option>
+                                            <option selected>1v3</option>
+                                            <option selected>1v4</option>
+                                            <option selected>1v5</option>
+                                            <option selected>1v6</option>
+                                        </select> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Lesson resources</label>
+                            <div class="col-md-8">
+                                <a href="" class = "btn btn-success instructorsList">
+                                <span class="icon icon-size-16 icon-btn-folder"></span></a>
+                            </div>
+                        </div>
+                         <div class="modal-footer">
+                    <button class="btn default" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn green" class = "createSingleClass" data-dismiss="modal">Submit</button>
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div id="todo-teacher-modal" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">选择老师</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">选定教师</label>
+                            <div class="col-md-8">
+                                <select id="select2_sample2" class="form-control select2 select-height" multiple>
+                                    <optgroup label="Senior Developers">
+                                        <option>Rudy</option>
+                                        <option>Shane</option>
+                                        <option>Sean</option>
+                                    </optgroup>
+                                    <optgroup label="Technical Team">
+                                        <option>Kathy</option>
+                                        <option>Luke</option>
+                                        <option>John</option>
+                                        <option>Darren</option>
+                                    </optgroup>
+                                  
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn default" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn green" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+<script type="text/javascript">
+
+$(function() {
+
+    $('.createSingleClass').
+    // $(".saveClassName").click(function(e) {
+    //     var _url,
+    //     _param = $('.className');
+    //     _url = $(this).data("href");
+
+    //     var classCourseEdit_path = _url + "?n=" + _param.val();
+    //     window.location.href = classCourseEdit_path;
+    // });
+     $('#thedate').datepicker({
+        dateFormat: 'dd-mm-yy',
+        altField: '#thealtdate',
+        altFormat: 'yy-mm-dd'
+    });
+
+    $('input[name="daterange"]').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'MM/DD/YYYY h:mm A'
+        },
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    });
+    
+    $(window).scroll(function() {
+        if ($('input[name="daterange"]').length) {
+            $('input[name="daterange"]').daterangepicker("close");
+      }
+    });
+});
+
+
+
+
+
+</script>
+
+{% endblock %}
+
+{% block pageLevelJSPlugins %}
+
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/moment.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/clockface/js/clockface.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block pageLevelJS %}
+
+     <script src="{{ asset('bundles/metronicadmin/themes/apps/scripts/todo.min.js') }} " type="text/javascript"></script>
+     <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/components-date-time-pickers.min.js') }} " type="text/javascript"></script>
+
+{% endblock %}

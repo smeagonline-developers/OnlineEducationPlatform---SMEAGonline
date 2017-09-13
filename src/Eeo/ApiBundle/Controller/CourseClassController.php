@@ -30,16 +30,17 @@ class CourseClassController extends BaseController
     public function getCourseClassAction($courseId) {
 
     	$courseClass = $this->base->getList(SELF::NAME, array('param' => ['courseId' => $courseId]));
+    	$courseClass = ($courseClass->error_info->errno == 106) ? null : $courseClass->data ;
 
-        return $this->render('TopxiaAdminBundle:Eeo:course-lesson-list.html.twig', ['courseClass' => $courseClass->data,'courseId' => $courseId]);
+        return $this->render('EeoWebBundle:classIn:course-class.html.twig', ['courseClass' => $courseClass,'courseId' => $courseId]);
 	}
 
 	public function editCourseClassAction($courseId, $classId) {
 
-		$request = Request::createFromGlobals();
-		$data  = $request->query->all();
+		$this->eeo 	= new EeoAuthentication();
+		$request 	= Request::createFromGlobals();
 
-		$this->eeo = new EeoAuthentication();
+		$data  		= $request->query->all();
 
 		$param 				= $this->eeo->getParameters();
 		$param["courseId"]  = $courseId;
@@ -49,10 +50,14 @@ class CourseClassController extends BaseController
         $createRequest = $this->eeo->buildRequest($this->base->apiFileAddress . "?action=editCourseClass", $param);
         $request = $this->eeo->postRequest();
 
+        var_dump($request);exit;
         return $this->getCourseClassAction($courseId);
 	}
 
-	public function addCourseClassAction() {}
+	public function addCourseClassAction() {
+
+
+	}
 
 	public function addCourseClassMultipleActrion() {}
 	 
@@ -62,7 +67,7 @@ class CourseClassController extends BaseController
 	public function getClassInfo($courseId, $classId){
 
 		$param = $this->eeo->getParameters();
-		
+
         $param["courseId"] = $courseId;
         $param["classId"] = $classId;
 

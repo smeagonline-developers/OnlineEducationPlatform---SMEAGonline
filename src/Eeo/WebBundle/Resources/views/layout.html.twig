@@ -1,3 +1,6 @@
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+{# {% import "TopxiaAdminBundle::macro.html.twig" as admin_macro %} #}
+{% import _self as self_macro %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +28,8 @@
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/layout.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('bundles/metronicadmin/css/style.css" rel="stylesheet" type="text/css') }}" />
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

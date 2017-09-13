@@ -1,6 +1,6 @@
-eeo_web:
+partner_admin_web:
     resource: "@EeoWebBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin
 
 EEO_partner_api:
     resource: "@EeoApiBundle/Resources/config/routing.yml"

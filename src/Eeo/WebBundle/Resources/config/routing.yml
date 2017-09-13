@@ -1,3 +1,45 @@
+##### COURSE ROUTES #####
+partner_getCourseList:
+    pattern:  /partner/course/list
+    defaults: { _controller: EeoApiBundle:Course:getCourseList }
+
+partner_addCourse:
+    pattern:  /partner/course/create
+    defaults: { _controller: EeoApiBundle:Course:addCourse }
+
+partner_editCourse:
+    pattern:  /partner/course/edit/{courseId}
+    defaults: { _controller: EeoApiBundle:Course:editCourse }
+
+partner_delCourse:
+    pattern:  /partner/course/delete/{courseId}
+    defaults: { _controller: EeoApiBundle:Course:delCourse }
+
+
+##### COURSE CLASS ROUTE #####
+partner_getCourseClass:
+    pattern:  /partner/{courseId}/class
+    defaults: { _controller: EeoApiBundle:CourseClass:getCourseClass }
+
+partner_editCourseClass:
+    pattern:  /partner/{courseId}/class/edit/{classId}
+    defaults: { _controller: EeoApiBundle:CourseClass:editCourseClass }
+
+partner_courseClassRemove:
+    pattern:  /partner/course/lesson/remove/{classId}/{courseId}
+    defaults: { _controller: TopxiaAdminBundle:Eeo:courseLessonRemove }
+
+
+
+
+##### TEACHER ROUTE #####
+partner_getTeacherList:
+    pattern:  /partner/teacher/list
+    defaults: { _controller: EeoApiBundle:Teacher:getTeacherList }
+
+
+
+#### ACCOUNT ROUTES #####
 eeo_web_homepage:
     path:     /hello/{name}
     defaults: { _controller: EeoWebBundle:Default:index }

@@ -1,0 +1,143 @@
+ .portlet-body.teachers {
+        width: 100%;
+        font-size: 10px;
+    }
+    .portlet-body.teachers > .mt-author > div {
+        width: 25%;
+            height: 30px;
+          display: inline-block;
+    }
+    .portlet-body.teachers > .mt-author > div.mt-author-name {
+        width:63%;
+    }
+
+    .mt-avatar img {
+            margin-top: -25px;
+        width: 38px;
+        border-radius: 100px !important;
+    }
+    .details {
+    text-align: left;
+}
+    a.teacher > div {
+    width: 30%;
+    display: inline-block;
+}
+
+a.teacher img {
+    vertical-align: unset;
+    height: 30px;
+    border-radius: 3px !important;
+}
+.createLessons a{border : 0;}
+.createLessons {
+    float: right;
+    margin-top: 40px;
+}
+table tr th {
+    font-weight: bold;
+}
+table, table tr th {
+    text-align: center;
+}
+table#sample_1 a {
+    color: #000;
+    font-size: 11px;
+    text-decoration: none;
+}
+table#sample_1 a.label-danger{
+color:#fff; 
+}
+.isChecked span {
+    color: #32c5d2!important;
+    font-size: 15px;
+    float: left;
+    position: relative;
+    left: 20px;
+    top: 10px;
+}
+.modal-title, .modal-body {
+    text-align: left;
+}
+.modal-dialog{
+    margin-top: 200px;
+}
+.modal-dialog label {
+    color: #8e8e8e;
+}
+.courseLessonPopups .form-control,
+.courseLessonPopups{
+    font-size: 11px;
+}
+
+.courseLessonPopups{
+        padding: 20px 0 10px;
+    font-size: 11px;
+}
+.courseLessonPopups .fa.fa-question-circle{
+    float: right;
+    margin-right: 125px;
+    margin-top: 10px;
+    font-size: 18px;
+}
+span.todo-float-r {
+    color: #98b7c1;
+    float: right;
+    font-size: 13px;
+    display: inline-block;
+}
+a.todo-add-button:hover{
+    background-color: #98b7c1;
+    color: #fff;
+    text-decoration: none;
+}
+a.todo-add-button {
+     border: 1px solid #98b7c1;
+    color: #c1cbd1;
+    text-decoration: none;
+    padding: 0 .4em;
+    font-size: 13px;
+    margin: -.3em 0 0 .5em;
+    float: right;
+}
+.portlet.light.portlet-fit>.portlet-title{
+    background: #6c7b88;
+    color: #98b7c1;
+    font-size: 13px;
+    border: 0;
+}
+.note {
+    border: 2px solid #20b2aa;
+    font-size: 10px;
+    background: rgb(255, 250, 240);
+    width: 325px;
+    position: absolute;
+    top: 20px;
+    right: -185px;
+    display: none;
+}
+i.fa.fa-question-circle:hover > .note{
+    display: block;
+}
+form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
+    position: relative;
+    left: 30px;
+}
+.modal-footer {
+    padding:10px;
+}
+.modal-footer button{
+        padding: 3px 25px;
+}
+                                                                .teacherlist > div {
+                                                                    width: 50%;
+                                                                    float: left;
+                                                                }
+
+                                                                .teacherlist {
+                                                                    width: 100%;
+                                                                }
+.input-group.input-large > div {
+    width: 30%;
+    float: left;
+}
