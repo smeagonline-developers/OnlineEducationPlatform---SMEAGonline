@@ -59,6 +59,9 @@ table#sample_1 a {
     font-size: 11px;
     text-decoration: none;
 }
+.teacherAssign label.mt-checkbox {
+    display: none;
+}
 table#sample_1 a.label-danger{
 color:#fff; 
 }
@@ -142,12 +145,14 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
 }
 .modal-footer button{
         padding: 3px 25px;
-}
+}   
                                                                 .teacherlist > div {
-                                                                    width: 50%;
+                                                                    width: 35%;
                                                                     float: left;
                                                                 }
-
+.teacherlist > div:first-child{
+width: 65%;
+}
                                                                 .teacherlist {
                                                                     width: 100%;
                                                                 }
@@ -211,7 +216,7 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
                                             {% for lesson in lessonTeachers %}
                                                 <div class="mt-author">
                                                     <div class="mt-avatar">
-                                                        <img src="{{ asset("https://www.eeo.cn/upload/images/20170818/af8d05c54a60d7004483_50.jpg") }}" />
+                                                        <img src="https://www.eeo.cn/upload/images/{{ lesson.teacher_logo }}" />
                                                     </div>
                                                     <div class="mt-author-name">
                                                         <div><a href="javascript:;" class="font-blue-madison">{{ lesson.teacher_name }}</a></div>
@@ -513,13 +518,19 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
                                                                 </td>
                                                                 <td>
                                                                     <a data-toggle="modal" href="#teacherAccount" class = "teacher">
-                                                                        <div>
-                                                                            <img src="{{ asset("https://www.eeo.cn/upload/images/20170818/af8d05c54a60d7004483_50.jpg") }}" />
-                                                                        </div>
-                                                                        <div class= "details">
-                                                                            <div>{{class.teacher_name}} </div>
-                                                                            <div>{{class.teacher_account}}</div>
-                                                                        </div>
+                                                                    {% if teachers %}
+                                                                        {% for teacher in teachers|reverse %}
+                                                                            {% if teacher.teacher_account == class.teacher_account %}
+                                                                            <div>
+                                                                                <img src="https://www.eeo.cn/upload/images/{{teacher.teacher_logo}}" />
+                                                                            </div>
+                                                                            <div class= "details">
+                                                                                <div>{{teacher.teacher_name}} </div>
+                                                                                <div>{{teacher.teacher_account}}</div>
+                                                                            </div>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
                                                                     </a>
 
                                                                     <div class="modal teacherAccount fade bs-modal-sm" id="teacherAccount" tabindex="-1" role="dialog" aria-hidden="true">
@@ -533,39 +544,55 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
                                                                                     <label class="control-label col-md-2" > 教师总数 50 </label>
                                                                                     <div class="col-md-6">
                                                                                         <input type = "text" class = "form-control" id = "searchTeachers" placeholder = "手机号 / 姓名"> 
-                                                                                        <a href = "" id = "addTeacher" class = "btn btn-default" style = "float: right;position: absolute;right: -205px;top: 0px;font-size: 14px;">添加机构教师</a>
+                                                                                        <a href = "" id = "addTeacher" class = "btn btn-default" style = "float: right;position: absolute;right: -170px;top: 0px;font-size: 14px;">添加机构教师</a>
                                                                                     </div>
-                                                                                    <div class = "teacherlist" style = "height: 446px;">
+                                                                                    <div class = "teacherlist" style = "height: 484px;">
                                                                                         <div class="listofteachers">
-                                                                                            {# {{dump(teachers)}} #}
-                                                                                            <ul class="contactList" style = "padding:0;display:block;height:512px;overflow: scroll;overflow-x: hidden;">
+                                                                                            <ul class="contactList" style = "padding:0;display:block;height:465px;overflow: scroll;overflow-x: hidden;">
                                                                                             {% if teachers %}
-                                                                                            {% for teacher in teachers|reverse %}
-                                                                                               <li class="contact" data-contactid="{{teacher.teacher_uid}}" style = "font-size:11px;position: relative;height: 64px; padding: 10px 10px 10px 70px;border-bottom: 1px solid #f3f3f3;list-style:none;">
-                                                                                                    <div class="icon icon-size-40 icon-avatar" style = "position: absolute;left: 20px;top: 50%;margin-top: -20px;">
-                                                                                                        <img style = "width:40px;height:40px;border-radius:20% !important;" src="https://www.eeo.cn/upload/images/{{teacher.teacher_logo}}">
-                                                                                                    </div>
-                                                                                                    <div class="name">{{teacher.teacher_name}}</div>
-                                                                                                    <div class="pinyin">{{teacher.teacher_name}}</div>
-                                                                                                    <div class="description">{{teacher.teacher_account}}</div>
-                                                                                                    <label class="mt-checkbox" style="margin-top:8px;margin-top: 8px;position: absolute;left: 275px;top: 75px;z-index: 9999;">
-                                                                                                          <input type="checkbox" name="batchEdit">
-                                                                                                                 <span></span>
-                                                                                                    </label>
-                                                                                                </li>
-                                                                                            {% endfor %} 
+                                                                                                {% for teacher in teachers|reverse %}
+                                                                                                   <li class="contact" data-contactid="{{teacher.teacher_uid}}" style = "font-size:11px;position: relative;height: 64px; padding: 10px 10px 10px 90px;border-bottom: 1px solid #f3f3f3;list-style:none;">
+                                                                                                        <div class="icon icon-size-40 icon-avatar" style = "position: absolute;left: 35px;top: 50%;margin-top: -20px;">
+                                                                                                            <img style = "width:40px;height:40px;border-radius:20% !important;" src="https://www.eeo.cn/upload/images/{{teacher.teacher_logo}}">
+                                                                                                        </div>
+                                                                                                        <div class="name">{{teacher.teacher_name}}</div>
+                                                                                                        <div class="pinyin" style = "display:none;">{{teacher.teacher_name}}</div>
+                                                                                                        <div class="description">{{teacher.teacher_account}}</div>
+                                                                                                        <label class="mt-checkbox" style="margin-top:8px;margin-top: 8px;position: absolute;left: 335px;top: 75px;z-index: 9999;">
+                                                                                                              <input type="checkbox" data-name = "{{teacher.teacher_name}}" data-account = "{{teacher.teacher_account}}" class = "chooseTeacher">
+                                                                                                                     <span></span>
+                                                                                                        </label>
+                                                                                                    </li>
+                                                                                                {% endfor %} 
                                                                                              {% endif %}
                                                                                             </ul>
                                                                                         </div>
-                                                                                        <div class="teacherAssign">
-                                                                                            {{ class.teacher_name }}
+                                                                                        <div class="teacherAssign" data-id = "">
+                                                                                            <ul class="contactList" style = "padding:0;">
+                                                                                            {% if teachers %}
+                                                                                                {% for teacher in teachers|reverse %}
+                                                                                                    {% if teacher.teacher_account == class.teacher_account %}
+                                                                                                        <li class="contact" data-contactid="{{teacher.teacher_uid}}" style = "    font-size: 14px;position: relative;height: 64px;padding: 10px 10px 10px 90px;list-style: none;font-weight: bold;">
+                                                                                                             <div class="icon icon-size-40 icon-avatar" style = "position: absolute;left: 35px;top: 50%;margin-top: -20px;">
+                                                                                                                <img style = "width:40px;height:40px;border-radius:20% !important;" src="https://www.eeo.cn/upload/images/{{teacher.teacher_logo}}">
+                                                                                                            </div>
+                                                                                                            <div class="name">{{teacher.teacher_name}}</div>
+                                                                                                            <div class="pinyin" style = "display:none;">{{teacher.teacher_name}}</div>
+                                                                                                            <div class="description">{{teacher.teacher_account}}</div>
+                                                                                                        </li>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                            {% endif %}
+                                                                                            </ul>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div><input id="checkBox" type="checkbox"> 批量修改本节课及之后课节(共3节)的授课老师 </div>
+                                                                                    <label class="mt-checkbox" style="float: left;margin: 35px 0 0 21px;">
+                                                                                          <input type="checkbox" name = "batch" class = "batch">批量修改本节课及之后课节(共3节)的授课老师 
+                                                                                                 <span></span>
+                                                                                    </label>
                                                                                 </div>
-                                                                                <div class="modal-footer">
-                                                                                   
-                                                                                    <button type="button" class="delete btn green" data-href = "{{ path('partner_courseClassRemove', {'classId': class.class_id,
+                                                                                <div class="modal-footer" style = "margin-top:35px;">
+                                                                                    <button type="button" class="delete btn green modifyCourseTeacher" data-href = "{{ path('partner_modifyCourseTeacher', {'account': class.teacher_account,
                                                                                     'courseId': courseId }) }}">Save</button>
                                                                                      <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
                                                                                 </div>
@@ -864,6 +891,25 @@ form.form-horizontal.courseLessonPopups.ng-pristine.ng-valid .form-group {
 <script type="text/javascript">
 
 $(function() {
+
+    $(".chooseTeacher").change(function()
+    {
+        $(".chooseTeacher").prop('checked',false);
+        $(this).prop('checked',true);
+
+        console.log( $(this).closest("li"));
+        var teacher = $(this).data('name');
+        $('.teacherAssign').html($(this).closest("li"));
+    });
+
+
+    
+    $('.modifyCourseTeacher').click(function(e) {
+        var _url,
+        _url = $(this).data("href");
+
+        window.location.href = _url;
+    });
 
     // $('.createSingleClass').
     // $(".saveClassName").click(function(e) {

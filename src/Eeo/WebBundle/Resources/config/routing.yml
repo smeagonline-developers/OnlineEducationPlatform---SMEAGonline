@@ -37,6 +37,10 @@ partner_getTeacherList:
     pattern:  /partner/teacher/list
     defaults: { _controller: EeoApiBundle:Teacher:getTeacherList }
 
+partner_modifyCourseTeacher:
+    pattern:  /partner/{courseId}/course-teacher/edit/{account}
+    defaults: { _controller: EeoApiBundle:Teacher:modifyCourseTeacher }
+
 
 
 #### ACCOUNT ROUTES #####

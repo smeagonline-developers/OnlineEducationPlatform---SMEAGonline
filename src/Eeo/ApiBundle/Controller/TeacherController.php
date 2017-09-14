@@ -38,6 +38,22 @@ class TeacherController extends Controller
         return $request->data;
     }
 
+    public function modifyCourseTeacherAction($courseId, $account) {
+
+        $param               = $this->eeo->getParameters();
+        $param["courseId"]      = $courseId;
+        $param["teacherAccount"]   = $account;
+
+        $createRequest = $this->eeo->buildRequest($this->apiFileAddress . "?action=modifyCourseTeacher", $param);
+        $request = $this->eeo->postRequest();
+
+        echo "<pre>";
+        
+        var_dump($request);exit;
+        echo "</pre>";
+        return $this->getCourseClassAction($courseId);
+    }
+
 	public function addTeacherAction() {
 
 	}
