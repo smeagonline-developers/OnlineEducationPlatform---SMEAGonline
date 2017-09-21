@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Topxia\System;
 use Topxia\Common\Paginator;
+use Eeo\ApiBundle\Controller\BaseController as Base;
 
 class DefaultController extends BaseController
 {

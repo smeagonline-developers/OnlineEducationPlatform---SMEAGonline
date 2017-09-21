@@ -1,7 +1,3 @@
-admin_partner:
-    name: 伙伴
-    parent: admin
-
 admin:
     name: 后台
     parent: null
@@ -10,6 +6,9 @@ admin_user:
     parent: admin
 admin_course:
     name: 课程
+    parent: admin
+admin_schedule:
+    name: 排课
     parent: admin
 admin_operation:
     name: 运营

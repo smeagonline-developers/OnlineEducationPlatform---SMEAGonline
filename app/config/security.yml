@@ -35,7 +35,6 @@ services:
 security:
     encoders:
         Topxia\Service\User\CurrentUser: sha256
-        FOS\UserBundle\Model\UserInterface: sha256
 
     providers:
         custom_provider:

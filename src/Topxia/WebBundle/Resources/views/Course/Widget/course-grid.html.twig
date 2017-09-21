@@ -38,3 +38,27 @@
     </div>
   </div>
 </div>
+
+{# {% set limit = 12 %}
+{% for course in partner|slice(0, limit)  %}
+        <div class="course-item">
+            <div class="course-img">
+                <a href="{{ path('course_show', {id:course.course_id}) }}" target="_blank">
+                </a>
+            </div>
+            <div class="course-info">
+                <div class="title">
+                    <a class="link-dark" href="{{ path('course_show', {id:course.course_id}) }}" target="_blank">
+                    {{ course.course_name }}
+                    </a>
+                </div>
+                <div class="metas clearfix">
+                    {% if setting('course.show_student_num_enabled', '1') == 1  %}
+                        <span class="num"><i class="es-icon es-icon-people"></i>{{ course.student_num }}</span>
+                    {% endif %}
+
+                    <span class="comment"><i class="es-icon es-icon-textsms"></i>{{ course.course_btime }}</span>
+                </div>
+            </div>
+        </div>
+{% endfor %} #}

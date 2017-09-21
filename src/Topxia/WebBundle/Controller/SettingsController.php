@@ -19,16 +19,26 @@ use Imagine\Image\ImageInterface;
 class SettingsController extends BaseController
 {
 
-	public function profileAction(Request $request)
+	public function profileAction($classIn = null, Request $request)
 	{
 		$user = $this->getCurrentUser();
-
 		$profile = $this->getUserService()->getUserProfile($user['id']);
-
 		$profile['title'] = $user['title'];
+
+		# note! phone in parameter is for eeo purposes; 
+		# that has been pass by the registration of new user process
+		# this will make as classIn ID
+		if (!is_null($classIn)) {	
+			$profile['class'] = $classIn['id'];
+			$profile['mobile'] = $classIn['phoneNumber'];
+			
+			$this->getUserService()->updateUserProfile($user['id'], $profile);
+		}
+		########
 
 		if ($request->getMethod() == 'POST') {
 			$profile = $request->request->get('profile');
+			
 			if (!((strlen($user['verifiedMobile']) > 0) && (isset($profile['mobile'])))) {
 				$this->getUserService()->updateUserProfile($user['id'], $profile);
 				$this->setFlashMessage('success', '基础信息保存成功。');
@@ -718,7 +728,7 @@ class SettingsController extends BaseController
 				try {
 					$this->sendEmail(
 						$data['email'],
-						"重设{$user['nickname']}在" . $this->setting('site.name', 'EDUSOHO') . "的电子邮箱",
+						"重设{$user['nickname']}在" . $this->setting('site.name', 'SMEAG线上') . "的电子邮箱",
 						$this->renderView('TopxiaWebBundle:Settings:email-change.txt.twig', array(
 							'user' => $user,
 							'token' => $token,

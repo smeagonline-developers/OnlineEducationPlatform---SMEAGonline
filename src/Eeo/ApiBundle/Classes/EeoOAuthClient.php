@@ -20,8 +20,7 @@ class EeoOAuthClient implements EeoOAuthInterface
 
     CONST NAME = "api_package";
     CONST REQUEST_HOST = "http://www.eeo.cn/partner/api";
-
-
+    
     public function getParameters() {
 
         $apiRequest = new RequestParameter();
@@ -50,7 +49,6 @@ class EeoOAuthClient implements EeoOAuthInterface
     }
 
     public function postRequest() {
-  
         $this->startProcess();
         curl_setopt_array($this->curl, array(  
                 CURLOPT_URL => $this->requestUri . "",

@@ -1,3 +1,0 @@
-fos_rest_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: FOSRestBundle:Default:index }

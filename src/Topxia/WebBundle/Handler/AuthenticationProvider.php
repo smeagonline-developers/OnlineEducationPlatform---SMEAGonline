@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use Topxia\Service\Common\ServiceKernel;
 
+use Eeo\ApiBundle\Classes\EeoOAuthClient as Eeo;
+
 /**
  * 此Class大部分代码来自DaoAuthenticationProvider 
  */

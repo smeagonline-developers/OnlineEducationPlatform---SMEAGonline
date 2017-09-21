@@ -6,20 +6,6 @@ EEO_partner_api:
     resource: "@EeoApiBundle/Resources/config/routing.yml"
     prefix:   /admin
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing.yml"
-    prefix:   /
-
-fos_rest:
-    resource: "@FOSRestBundle/Resources/config/routing.yml"
-    prefix:   /
-
-jms_serializer:
-    resource: "@JMSSerializerBundle/Resources/config/routing.yml"
-    prefix:   /
-
-
-
 
 #############
 __web:

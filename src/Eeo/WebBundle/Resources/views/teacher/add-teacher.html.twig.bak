@@ -1,0 +1,171 @@
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'dashboard' %}
+{% set script_controller = 'default/index' %}
+{% block content %}
+ <link rel="stylesheet" href="{{ asset('bundles/topxiaadmin/themes/pages/css/search.min.css') }}" />
+
+     <div class="container-fluid">
+                <div class="page-content">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <div class="breadcrumbs">
+                        <h1>添加新老师</h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="#">老师</a>
+                            </li>
+                            <li>
+                                <a href="#">管理</a>
+                            </li>
+                            <li class="active">一位新老师</li>
+                        </ol>
+                        <!-- Sidebar Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- Sidebar Toggle Button -->
+                    </div>
+                    <!-- END BREADCRUMBS -->
+                    <!-- BEGIN SIDEBAR CONTENT LAYOUT -->
+                    <div class="page-content-container">
+                        <div class="page-content-row">
+                     
+
+
+                                    
+ <div class="portlet light bordered">
+    <form action="../assets/global/plugins/dropzone/upload.php" class="dropzone dropzone-file-area" id="my-dropzone" style="width: 265px; margin-top: 10px;">
+        <h3>Teacher's Avatar</h3>
+        <p> Head size: 180 * 180 </p>
+        <p>3.封面图片格式支持JPG,PNG,GIF  </p>
+    </form>
+
+
+    <style type="text/css">
+        form#my-dropzone {
+            margin: inherit;
+        }
+        .addTeacher {
+position: relative;
+    top: -95px;
+    left: 140px;
+        }
+        form-group.accountNo {
+            margin-left: 160px;
+        }
+    </style>                             
+    <div class="portlet-body form">
+    <form class="form-horizontal addTeacher" action = "{{ path('partner_addTeacher') }}" method = "post" id = "addTeacherForm">
+        <div class="form-body addTeacher">
+
+            <div class="form-group accountNo">
+                <label class="col-md-1 control-label">Account Number : </label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name = "accountNo" placeholder="Account Number" value="">
+                </div>
+            </div>
+
+             <div class="form-group name">
+                <label class="col-md-1 control-label">Name : </label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name = "name" placeholder="Name" value="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-1 control-label">Gender : </label>
+                <div class="mt-radio-inline">
+                    <label class="mt-radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios4" value="Male" checked="">Male
+                        <span></span>
+                    </label>
+                    <label class="mt-radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios5" value="Female">Female
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-offset-1 col-md-2">
+                    <button type="submit" class="btn green"> <i class="fa fa-plus"></i> Add Teacher </button>
+                    <button type="button" class="btn default"> Back </button> 
+                </div>
+            </div>
+    </form>
+    </div>
+                                                    </div>
+                                                    <div class="modal fade bs-modal-sm" id="small" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                <h4 class="modal-title">选择资源</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                  <div class="portlet-body">
+                                                                        <div id="tree_1" class="tree-demo">
+
+                                                                           
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                {# <button type="button" class="btn dark btn-outline" data-dismiss="modal">没有</button> #}
+                                                                <button type="button" class="btn green">确定</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+
+
+
+                        </div>
+                        <!-- BEGIN FOOTER -->
+                        <p class="copyright"> 2016 &copy; Metronic Theme By
+                            <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                            <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                        </p>
+                        <a href="#index" class="go2top">
+                            <i class="icon-arrow-up"></i>
+                        </a>
+                        <!-- END FOOTER -->
+                    </div>
+
+            <script type="text/javascript">
+
+               $( "#addTeacherForm" ).submit(function( event ) {
+                    event.preventDefault();
+
+                    var form_data = $(this).serialize();
+                    var form_url = $(this).attr("action");
+                    var form_method = $(this).attr("method").toUpperCase();
+
+                    $.ajax({
+                        url: form_url, 
+                        type: form_method,      
+                        data: form_data,     
+                        cache: false,
+                        dataType: "json",
+                        async: true,
+                        success: function( data ){     
+                            console.log(data);                   
+                        }           
+                    });    
+                });
+            </script>
+
+            <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/datatable.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/datatables/datatables.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/search.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/app.min.js') }}"></script>
+            <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/ui-tree.min.js') }}"></script>
+{% endblock %}

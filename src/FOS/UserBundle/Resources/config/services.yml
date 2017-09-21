@@ -1,8 +1,0 @@
-services:
-#    fos_user.example:
-#        class: FOS\UserBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
-    # fos_user:
-    #     db_driver: orm 
-    #     firewall_name: main
-    #     class: Level7\UserBundle\Entity\User

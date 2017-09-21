@@ -1,0 +1,88 @@
+{% import _self as self_macro %}
+    <div class="col-md-2">
+        <div class="widget megacourse">
+            <h3 class="md"> <a class="" href="{{ bottomLogo[0].href|default('') }}" target="{{ bottomLogo[0].target|default('') }}">SMEAG线上英语</a></h3>
+            <p>{% if (weibo[0].href) %}
+              <a href="{{ weibo[0].href|default('javascript:;') }}" target="{{ weibo[0].target|default('') }}"><i class="es-icon es-icon-weibo"></i></a>
+              {% endif %}
+              {% if (weixin[0].src) %}
+              <a class="qrcode-popover top">
+                <i class="es-icon es-icon-weixin"></i>
+                <div class="qrcode-content">
+                  <img src="{{ asset(weixin[0].src|default('')) }}" alt="">  
+                </div>
+              </a>
+              {% endif %}
+              {% if (apple[0].src) %}
+              <a class="qrcode-popover top">
+                <i class="es-icon es-icon-apple"></i>
+                <div class="qrcode-content">
+                  <img src="{{ asset(apple[0].src|default('')) }}" alt=""> 
+                </div>
+              </a>
+              {% endif %}
+              {% if (android[0].src) %}
+              <a class="qrcode-popover top">
+                <i class="es-icon es-icon-android"></i>
+                <div class="qrcode-content">
+                  <img src="{{ asset(android[0].src|default('')) }}" alt=""> 
+                </div>
+              </a>
+              {% endif %}
+            </p>
+            <a href="#" class="mc-btn btn-style-1">Get started</a>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="widget megacourse">
+            {{ self_macro.footer_div(firstColumnText|first, firstColumnLinks) }}
+            {{ self_macro.footer_div(secondColumnText|first, secondColumnLinks) }}
+        </div>
+    </div>
+     <div class="col-md-2">
+        <div class="widget megacourse">
+            {{ self_macro.footer_div(thirdColumnText|first, thirdColumnLinks) }}
+            {{ self_macro.footer_div(fourthColumnText|first, fourthColumnLinks, 'hidden-xs') }}
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="widget megacourse">
+               {{ self_macro.footer_div(fifthColumnText|first, fifthColumnLinks, 'hidden-xs') }}
+        </div>
+    </div>
+     
+    <div class="col-md-4">
+        <div class="widget news_letter">
+            <div class="inner">
+                <div class="letter-heading">
+                    <h3 class="md">News letter</h3>
+                    <p>Don’t miss a course sale! Join our network today and keep it up!</p>
+                </div>
+                <div class="letter">
+                    <form>
+                        <input class="input-text" type="text">
+                        <span class="no-spam">* No spam guaranteed</span>
+                        <input type="submit" value="Submit now" class="mc-btn btn-style-2">
+                    </form>
+                </div>
+            </div>
+
+            <div class="overlay-color-3"></div>
+        </div>
+    </div> 
+
+  {% macro footer_div(title, links, className) %}
+<div class="link-item {% if className %}{{className}}{% endif %}">
+  <h3>{{ title.value|default('') }}</h3>
+  <ul>
+    {% for link in links|default(null) %}
+      <li>
+        <a href="{{ link.href }}" target="{{ link.target }}">{{ link.value }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endmacro %}

@@ -1,0 +1,131 @@
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'dashboard' %}
+{% set script_controller = 'default/index' %}
+
+{% block pageLevelCSSPlugin %}
+    <link href="{{ asset('bundles/metronicadmin/themes/global/plugins/cubeportfolio/css/cubeportfolio.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block pageLevelCSSStyles %}
+        <link href="{{ asset('bundles/metronicadmin/themes/pages/css/portfolio.min.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+     <div class="container-fluid">
+                <div class="page-content">
+                    <!-- BEGIN BREADCRUMBS -->
+                    <div class="breadcrumbs">
+                        <h1>课程管理</h1>
+                        <a href="{{ path('partner_addTeacher') }}" class = "btn green">Add new teacher</a>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="#">管理</a>
+                            </li>
+                            <li>
+                                <a href="#">eeo</a>
+                            </li>
+                            <li class="active">课程管理</li>
+                        </ol>
+                        <!-- Sidebar Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".page-sidebar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                        </button>
+                        <!-- Sidebar Toggle Button -->
+                    </div>
+                    <!-- END BREADCRUMBS -->
+                       <div class="page-content-col">
+
+                                <!-- BEGIN PAGE BASE CONTENT -->
+                                <div class="portfolio-content portfolio-1">
+
+                                    {# filters #}
+                                    <div id="js-filters-juicy-projects" class="cbp-l-filters-button">
+                                        <div data-filter="*" class="cbp-filter-item-active cbp-filter-item btn dark btn-outline uppercase"> All
+                                            <div class="cbp-filter-counter"></div>
+                                        </div>
+                                        <div data-filter=".identity" class="cbp-filter-item btn dark btn-outline uppercase"> Identity
+                                            <div class="cbp-filter-counter"></div>
+                                        </div>
+                                        <div data-filter=".web-design" class="cbp-filter-item btn dark btn-outline uppercase"> Web Design
+                                            <div class="cbp-filter-counter"></div>
+                                        </div>
+                                        <div data-filter=".graphic" class="cbp-filter-item btn dark btn-outline uppercase"> Graphic
+                                            <div class="cbp-filter-counter"></div>
+                                        </div>
+                                        <div data-filter=".logos" class="cbp-filter-item btn dark btn-outline uppercase"> Logo
+                                            <div class="cbp-filter-counter"></div>
+                                        </div>
+                                    </div>
+
+                                    <div id="js-grid-juicy-projects" class="cbp">       
+                                    {% set limit = 8 %}
+                                        {% if teachers %}
+                                        {% for teacher in teachers|reverse|slice(0, limit) %}
+                                            <div class="cbp-item graphic" id = "{{ teacher.teacher_account }}">
+                                                <div class="cbp-caption">
+                                                    <div class="cbp-caption-defaultWrap">
+                                                        <img src="https://www.eeo.cn/upload/images/{{ teacher.teacher_logo }}" alt=""> </div>
+                                                    <div class="cbp-caption-activeWrap">
+                                                        <div class="cbp-l-caption-alignCenter">
+                                                            <div class="cbp-l-caption-body">
+                                                                <a href="{{ path('eeo_userOverview', {'account': teacher.teacher_account}) }}" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase" rel="nofollow">View Profile</a> 
+                                                               {#  <a href="{{ asset('bundles/metronicadmin/themes/global/plugins/cubeportfolio/ajax/project1.html') }}" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase" rel="nofollow">View Profile</a> #}
+                                                                <a href="{# {{ asset('') }} #}" class="cbp-lightbox cbp-l-caption-buttonRight btn red uppercase btn red uppercase" data-title="Dashboard<br>by Paul Flavius Nechita">View details</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="cbp-l-grid-projects-title uppercase text-center uppercase text-center">{{ teacher.teacher_name }}</div>
+                                                <div class="cbp-l-grid-projects-desc uppercase text-center uppercase text-center">{{ teacher.teacher_account }}</div>
+                                            </div>
+                                        {% endfor %} 
+                                    {% endif %}
+                                    </div>
+                                      
+                                    {% if teachers|length > limit %}
+                                        <div id="js-loadMore-juicy-projects" class="cbp-l-loadMore-button">
+                                            <a href="{{ asset('bundles/metronicadmin/themes/global/plugins/cubeportfolio/ajax/loadMore.html') }}" class="cbp-l-loadMore-link btn grey-mint btn-outline" rel="nofollow">
+                                                <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
+                                                <span class="cbp-l-loadMore-loadingText">LOADING...</span>
+                                                <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                    <!-- END PAGE BASE CONTENT -->
+                                </div>
+
+                <!-- BEGIN FOOTER -->
+                <p class="copyright"> 2016 &copy; Metronic Theme By
+                    <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+                    <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+                </p>
+                <a href="#index" class="go2top">
+                    <i class="icon-arrow-up"></i>
+                </a>
+                <!-- END FOOTER -->
+            </div>
+
+            <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".clickable-row").click(function() {
+                    console.log($(this).data("href"));
+                    
+                    window.location = $(this).data("href");
+                });
+
+                $(".confirmToDeleteCourse").click(function(){
+                    window.location = $(this).data("href");
+                });
+            });</script>
+
+          
+{% endblock %}
+
+{% block pageLevelJSPlugins %} <script src="{{ asset('bundles/metronicadmin/themes/global/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js') }}"></script> {% endblock %}
+{% block pageLevelJSScripts %} <script src="{{ asset('bundles/metronicadmin/themes/pages/scripts/portfolio-1.min.js') }}"></script> {% endblock %}

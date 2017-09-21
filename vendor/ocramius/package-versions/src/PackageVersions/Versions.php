@@ -62,7 +62,7 @@ final class Versions
   'willdurand/negotiation' => '1.5.0@2a59f2376557303e3fa91465ab691abb82945edf',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
   'zendframework/zend-eventmanager' => '3.2.0@9d72db10ceb6e42fb92350c0cb54460da61bd79c',
-  'topxia/edusoho' => '1.0.0.0@',
+  'topxia/edusoho' => '2.3.9999999.9999999-dev@78ae48fabc0102de2cef35648bc89054c563f2d3',
 );
 
     private function __construct()

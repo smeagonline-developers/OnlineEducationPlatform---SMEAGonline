@@ -1,4 +1,0 @@
-services:
-#    jms_serializer.example:
-#        class: JMS\SerializerBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]

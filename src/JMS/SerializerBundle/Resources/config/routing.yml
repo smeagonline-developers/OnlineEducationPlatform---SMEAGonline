@@ -1,3 +1,0 @@
-jms_serializer_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: JMSSerializerBundle:Default:index }

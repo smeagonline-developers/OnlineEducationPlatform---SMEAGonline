@@ -20,7 +20,7 @@
 /app/config/parameters.ini
 
 # Managed by Composer
-/app/bootstrap.php.cache
+#/app/bootstrap.php.cache
 /var/bootstrap.php.cache
 /bin/*
 !bin/console

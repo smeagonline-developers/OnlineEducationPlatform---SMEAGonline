@@ -105,15 +105,17 @@ class BaseController extends Controller
     * 
     * @param $courseId
     */
-    public function getCourseClass($courseId) {
+    public function getCourseClass($courseId = null) {
 
 		$param = $this->eeo->getParameters();
-        $param["courseId"] = $courseId;
 
-      			   $this->eeo->buildRequest($this->apiFileAddress . "?action=getCourseClass", $param);
+        if (!is_null($courseId)) {
+            $param["courseId"] = $courseId;
+        }
+      			   $this->eeo->buildRequest($this->apiFileAddress . "?action=getCourseList", $param);
         $request = $this->eeo->postRequest();
 
-        return $request->data;
+        return $request;
 	}
 
 	public function getTeacherList() {
@@ -126,8 +128,24 @@ class BaseController extends Controller
         return array($request->data);
 	}
 
+    public function getUserCourseList( $userAccount ) {
+
+        $param = $this->eeo->getParameters();
+        $param["userAccount"] = $userAccount;
+
+                   $this->eeo->buildRequest($this->apiFileAddress . "?action=getUserCourseList", $param);
+        $request = $this->eeo->postRequest();
+
+        return $request->data;
+    }
+
     public function dataTransformer() {
 
+    }
+
+    public function getParameters() {
+
+        return $this->eeo->getParameters();
     }
     
 }

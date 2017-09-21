@@ -399,7 +399,7 @@ class CourseServiceImpl extends BaseService implements CourseService
 			throw $this->createServiceException('缺少必要字段，创建课程失败！');
 		}
 
-		$course = ArrayToolkit::parts($course, array('title', 'type','about', 'categoryId', 'tags', 'price', 'startTime', 'endTime', 'locationId', 'address'));
+		$course = ArrayToolkit::parts($course, array('id', 'title', 'type','about', 'categoryId', 'tags', 'price', 'startTime', 'endTime', 'locationId', 'address'));
 
 		$course['status'] = 'draft';
         $course['about'] = !empty($course['about']) ? $this->purifyHtml($course['about']) : '';
@@ -407,7 +407,7 @@ class CourseServiceImpl extends BaseService implements CourseService
 		$course['userId'] = $this->getCurrentUser()->id;
 		$course['createdTime'] = time();
 		$course['teacherIds'] = array($course['userId']);
-		$course = $this->getCourseDao()->addCourse(CourseSerialize::serialize($course));
+		$saveCourse = $this->getCourseDao()->addCourse(CourseSerialize::serialize($course));
 		
 		$member = array(
 			'courseId' => $course['id'],

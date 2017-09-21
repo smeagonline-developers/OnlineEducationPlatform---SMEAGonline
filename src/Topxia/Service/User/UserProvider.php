@@ -26,6 +26,7 @@ class UserProvider implements UserProviderInterface {
         $user['currentIp'] = $this->container->get('request')->getClientIp();
         $currentUser = new CurrentUser();
         $currentUser->fromArray($user);
+
         ServiceKernel::instance()->setCurrentUser($currentUser);
         
         return $currentUser;

@@ -35,9 +35,6 @@ class AppKernel extends Kernel
             new Topxia\MobileBundleV2\TopxiaMobileBundleV2(),
             new Classroom\ClassroomBundle\ClassroomBundle(),
             new Metronic\AdminBundle\MetronicAdminBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
             new Eeo\ApiBundle\EeoApiBundle(),
             new Eeo\WebBundle\EeoWebBundle(),
         );

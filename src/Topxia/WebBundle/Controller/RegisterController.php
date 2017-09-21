@@ -8,6 +8,10 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Topxia\Common\SmsToolkit;
 use Topxia\Common\SimpleValidator;
 
+#for eeo registration
+use Eeo\ApiBundle\Classes\Config\RequestParameter as ClassIn;
+use Eeo\ApiBundle\Controller\CourseController as EeoCourse;
+
 class RegisterController extends BaseController
 {
      public function indexAction(Request $request)
@@ -25,11 +29,9 @@ class RegisterController extends BaseController
         if ($request->getMethod() == 'POST') {
 
             $registration = $request->request->all();
+
             $registration['mobile'] = isset($registration['verifiedMobile']) ? $registration['verifiedMobile'] : '';
-
             $registration['createdIp'] = $request->getClientIp();
-
-
             $authSettings = $this->getSettingService()->get('auth', array());
 
             //验证码校验
@@ -51,7 +53,22 @@ class RegisterController extends BaseController
                return  $this->createMessageResponse('info', '由于您注册次数过多，请稍候尝试');
             }
 
+            $classIn = new ClassIn();
+            $getClassInUser = $classIn->getClassInUserRegistration();
+            if (is_array($getClassInUser)) {
+
+                $eeo = new EeoCourse();
+                $generateRegisteredUserClassroom = $eeo->addCourseAction($registration['nickname']);
+            }
+
+
+            $registration['class'] = $getClassInUser['classIn_id'];
+            $registration['mobile'] = $getClassInUser['classIn_telephone'];
+
+            #for our project registration
             $user = $this->getAuthService()->register($registration);
+
+            // var_dump($user);exit;
 
             if(!isset($registration['nickname'])){
                 return  $this->render("TopxiaWebBundle:Register:nickname-update.html.twig",array('user' => $user));        
@@ -67,7 +84,7 @@ class RegisterController extends BaseController
                     'hash' => $this->makeHash($user),
                     'goto' => $this->getTargetPath($request),
                 ));
-             
+                
                 if ($this->getAuthService()->hasPartnerAuth()) {
                      $this->authenticateUser($user);
                     return $this->redirect($this->generateUrl('partner_login', array('goto' => $goto)));
@@ -90,7 +107,6 @@ class RegisterController extends BaseController
             '_target_path' => $this->getTargetPath($request),
         ));
     }
-
 
     public function nicknameUpdateAction(Request $request)
     {
@@ -254,6 +270,7 @@ class RegisterController extends BaseController
 
     protected function getTargetPath($request)
     {
+
         if ($request->query->get('goto')) {
             $targetPath = $request->query->get('goto');
         } else if ($request->getSession()->has('_target_path')) {

@@ -14,7 +14,7 @@
 
 # partner_courseEdit:
 #     pattern:  /partner/course/edit/{courseId}
-#     defaults: { _controller: TopxiaAdminBundle:Eeo:courseEdit }
+#     defaults: { _controller: TopxiaAdminBundle:Eeo:coursqeEdit }
 
 # partner_courseDelete:
 #     pattern:  /partner/course/delete/{courseId}
@@ -32,3 +32,7 @@
 # partner_courseClassRemove:
 #     pattern:  /partner/course/lesson/remove/{classId}/{courseId}
 #     defaults: { _controller: TopxiaAdminBundle:Eeo:courseLessonRemove }
+
+# test:
+#     pattern:  /partner/classInfo/test
+#     defaults: { _controller: TopxiaAdminBundle:Test:getClassInfo }

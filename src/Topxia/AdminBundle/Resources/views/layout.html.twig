@@ -31,7 +31,7 @@
         {% endif %}
       {% endfor %}
     {% endblock %}
-    {% if not setting('copyright.owned') %} | EduSoho{% endif %}
+    {% if not setting('copyright.owned') %} | SMEAG线上{% endif %}
   </title>
 
   {% if setting('site.favicon') %}
@@ -62,7 +62,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url('admin') }}">{% if not setting('copyright.owned') %}EduSoho{% endif %}管理后台</a>
+        <a class="navbar-brand" href="{{ url('admin') }}">{% if not setting('copyright.owned') %}SMEAG{% endif %}线上</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">

@@ -46,7 +46,8 @@
 			          {% endif %}
 		          </td>
 		          <td>
-		            {{ admin_macro.user_link(askers[question.userId]) }}
+		          	{{dump(question)}}
+		            {# {{ admin_macro.user_link(askers[question.userId]) }} #}
 		          </td>
 		          <td>
 		          	{% if course %}

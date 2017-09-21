@@ -28,7 +28,7 @@
             	</td>
               <td class="money-text">{{order.amount}} 元</td>
               <td>
-              	{{ admin_macro.user_link(users[order.userId]) }}
+              	{# {{ admin_macro.user_link(users[order.userId]) }} #}
               </td>
               <td>
               	<span class="text-sm">{{ dict_text('payment', order.payment)|default('--') }}  / {{order.paidTime |date('Y-n-d H:i')}}</span>

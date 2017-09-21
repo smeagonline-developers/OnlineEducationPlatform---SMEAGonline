@@ -24,7 +24,7 @@ class CourseController extends BaseController
     public function __construct() {
 
         $this->base = new EeoBaseController();
-
+        $this->eeo = new EeoAuthentication();
     }
 
     /*
@@ -47,8 +47,18 @@ class CourseController extends BaseController
     /*
     *    Creating a course
     */
-    public function addCourseAction() {
-        
+    public function addCourseAction($name = null) {
+        if (!is_null($name)) {
+
+            $param = $this->eeo->getParameters();
+            $param["courseName"] = $name;
+            $this->eeo->buildRequest($this->base::COURSE_FILE . "?action=addCourse", $param);
+
+            $request = $this->eeo->postRequest();
+
+            return $request;
+        }
+
         $formRequest = Request::createFromGlobals();
         $courseName = $formRequest->query->get('name');
       
@@ -56,19 +66,19 @@ class CourseController extends BaseController
             
             $param = $this->eeo->getParameters();
             $param["courseName"] = $courseName;
+           
+            $this->eeo->buildRequest($this->base::COURSE_FILE . "?action=addCourse", $param);
 
-            $this->eeo->buildRequest("/course.api.php?action=addCourse", $param);
             $request = $this->eeo->postRequest();
-
             $this->get('session')->getFlashBag()->add('notice', array('type' => 'success', 'title' => 'Course Created!', 'message' => 'You have successfully created new course!'));
 
             $newCreatedCourseId = $request->data;
             $response = $request->error_info->errno;
 
-            return $this->render('TopxiaAdminBundle:Eeo:course-create.html.twig'); 
+            return $this->render('EeoWebBundle:classIn:add-course.html.twig'); 
         }
 
-        return $this->render('TopxiaAdminBundle:Eeo:add-course.html.twig'); 
+        return $this->render('EeoWebBundle:classIn:add-course.html.twig'); 
     }
 
     /*

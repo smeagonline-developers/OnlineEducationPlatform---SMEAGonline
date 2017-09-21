@@ -1,0 +1,68 @@
+
+{% extends 'MetronicAdminBundle::layout.html.twig' %}
+{% block title %}管理后台{% endblock %}
+{% set panel = 'dashboard' %}
+{% set script_controller = 'default/index' %}
+{% block content %}
+    <form class="form-horizontal addTeacher" action = "{{ path('partner_addTeacher') }}" method = "post" id = "addTeacherForm" style = "margin-top:150px;">
+        <div class="form-body addTeacher">
+
+            <div class="form-group accountNo">
+                <label class="col-md-1 control-label">Account Number : </label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name = "accountNo" placeholder="Account Number" value="">
+                </div>
+            </div>
+
+             <div class="form-group name">
+                <label class="col-md-1 control-label">Name : </label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" name = "name" placeholder="Name" value="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-1 control-label">Gender : </label>
+                <div class="mt-radio-inline">
+                    <label class="mt-radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios4" value="Male" checked="">Male
+                        <span></span>
+                    </label>
+                    <label class="mt-radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios5" value="Female">Female
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-offset-1 col-md-2">
+                    <button type="submit" class="btn green"> <i class="fa fa-plus"></i> Add Teacher </button>
+                    <button type="button" class="btn default"> Back </button> 
+                </div>
+            </div>
+    </form>
+
+    <script>
+    $( "#addTeacherForm" ).submit(function( event ) {
+        event.preventDefault();
+
+        var form_data = $(this).serialize();
+        var form_method = $(this).attr("method").toUpperCase();
+        var form_action = $(this).attr("action");
+
+        window.location.href = form_action + "?" + form_data;
+
+        // $.ajax({
+        //     url: '{{ (path('partner_addTeacher')) }}', 
+        //     type: form_method,      
+        //     ContentType: "Application/json",
+        //     data: { 'new_teacher': form_data },     
+        //     dataType: "json",
+        //     async: true,
+        //     success: function( data ){     
+        //         console.log(data);                   
+        //     }           
+        // });    
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,105 @@
+<style type="text/css">
+table {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+table th, td {
+    padding: 10px;
+    text-align: center;
+}
+thead {
+    background: whitesmoke;
+}
+tbody tr {
+    border-bottom: 1px solid rgba(220, 220, 220, 0.21);
+}
+</style>
+
+<div class="portfolio-content">
+    <div class="cbp-l-project-title">{{ data.teacher_name }}</div>
+    <div class="cbp-l-project-subtitle">{{ data.teacher_account }}</div>
+    <div class="cbp-slider">
+
+
+        <ul class="cbp-slider-wrap">
+            <li class="cbp-slider-item">
+                <a href="{{ asset('bundles/metronicadmin/themes/global/plugins/cubeportfolio/ajax/project1.html') }}" class="cbp-lightbox">
+                   <img src = "https://www.eeo.cn/upload/images/{{data.teacher_logo}}"> </a>
+            </li>
+            <li class="cbp-slider-item">
+               <a href="{{ asset('bundles/metronicadmin/themes/global/plugins/cubeportfolio/ajax/project1.html') }}" class="cbp-lightbox">
+                   <img src = "https://www.eeo.cn/upload/images/{{data.teacher_logo}}"> </a>
+            </li>
+            <li class="cbp-slider-item">
+                <a href="../assets/global/img/portfolio/1200x900/77.jpg" class="cbp-lightbox">
+                    <img src="../assets/global/img/portfolio/1200x900/77.jpg" alt=""> </a>
+            </li>
+        </ul>
+    </div>
+    <div class="cbp-l-project-container">
+        <div class="cbp-l-project-desc">
+            <div class="cbp-l-project-desc-title">
+                <span>专业描述</span>
+            </div>
+            <div class="cbp-l-project-desc-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, cumque, earum blanditiis incidunt minus commodi consequatur provident quae. Nihil, alias, vel consequatur ab aliquam aspernatur optio harum facilis excepturi mollitia autem
+                voluptas cum ex veniam numquam quia repudiandae in iure. Assumenda, vel provident molestiae perferendis officia commodi asperiores earum sapiente inventore quam deleniti mollitia consequatur expedita quaerat natus praesentium beatae aut
+                ipsa non ex ullam atque suscipit ut dignissimos magnam!</div>
+        </div>
+        <div class="cbp-l-project-details">
+            <div class="cbp-l-project-details-title">
+                <span>工作状态</span>
+            </div>
+            <ul class="cbp-l-project-details-list">
+                <li>
+                    <strong>当前</strong><span class = "label label-success">上课</span></li>
+                <li>
+                    <strong>日期</strong>14 September 2017</li>
+                <li>
+                    <strong>今天的课程</strong> 我爱你 </li>
+            </ul>
+            <a href="{{ path('eeo_user', {'name': data.teacher_name}) }}" target="_blank" class="cbp-l-project-details-visit btn red uppercase">访问{{data.teacher_name}}个人资料网站</a>
+        </div>
+    </div>
+    <div class="cbp-l-project-container">
+        <div class="cbp-l-project-related">
+            <div class="cbp-l-project-desc-title">
+                <span>我的课程列表</span>
+            </div>
+
+            {% if TeachersClass %}
+                {% set limit = 2 %}
+                {% for class in TeachersClass|slice(0, limit) %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course Title</th>
+                                <th>Class Type</th>
+                                <th>Start Time</th>
+                                <th>Students (1)</th>
+                                <th>Day class status</th>
+                                <th>operating</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ class.course_name }}</td>
+                                <td>6 people classroom</td>
+                                <td><p>Total Hours: 111</p> <p>Consumed: 70</p></td>
+                                <td>{{ class.create_time }} to {{ class.expiry_time }} </td>
+                                <td>Chen Jin Ho Kim chenhao (23633333002)</td>
+                                <td>{{ class.released }}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   
+                {% endfor %}
+            {% endif %}
+           
+        </div>
+    </div>
+    <br>
+    <br>
+    <br> </div>

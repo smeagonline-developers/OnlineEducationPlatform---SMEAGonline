@@ -53,6 +53,9 @@
     {# THEME GLOBAL STYLES #}
     <link href="{{ asset('bundles/metronicadmin/themes/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
     <link href="{{ asset('bundles/metronicadmin/themes/global/css/plugins.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
+    
+    {% block pageLevelCSSStyles %}{% endblock %}
+    
     {# HEME LAYOUT STYLES #}
     <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/layout.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
     <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/custom.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
@@ -652,7 +655,7 @@
     <script src="{{ asset('bundles/eeoapi/app/components/keyEvents.directives.js') }}"></script>
     <script src="{{ asset('bundles/eeoapi/app/components/course.controller.js') }}"></script>
 
-    {% block pageLevelJS %}{% endblock %}
+    {% block pageLevelJSScripts %}{% endblock %}
 
     <script src="{{ asset('bundles/metronicadmin/themes/layouts/layout5/scripts/layout.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/metronicadmin/themes/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>

@@ -9,6 +9,7 @@ use Topxia\WebBundle\Form\CourseType;
 use Topxia\Service\Course\CourseService;
 use Topxia\Common\ArrayToolkit;
 use Topxia\Service\Util\EdusohoLiveClient;
+use Eeo\ApiBundle\Controller\BaseController as EeoBaseController;
 
 class CourseController extends CourseBaseController
 {
@@ -329,32 +330,49 @@ class CourseController extends CourseBaseController
 		$isLive = $request->query->get('flag');
 		$type = ($isLive == "isLive") ? 'live' : 'normal';
 
-		if ($type == 'live') {
+		// if ($type == 'live') {
 
-			$courseSetting = $this->setting('course', array());
+		// 	$courseSetting = $this->setting('course', array());
 
-			if (!empty($courseSetting['live_course_enabled'])) {
-				$client = new EdusohoLiveClient();
-				$capacity = $client->getCapacity();
-			} else {
-				$capacity = array();
-			}
+		// 	if (!empty($courseSetting['live_course_enabled'])) {
+		// 		$client = new EdusohoLiveClient();
+		// 		$capacity = $client->getCapacity();
+		// 	} else {
+		// 		$capacity = array();
+		// 	}
 
-			if (empty($courseSetting['live_course_enabled'])) {
-				return $this->createMessageResponse('info', '请前往后台开启直播,尝试创建！');
-			}
+		// 	if (empty($courseSetting['live_course_enabled'])) {
+		// 		return $this->createMessageResponse('info', '请前往后台开启直播,尝试创建！');
+		// 	}
 
-			if (empty($capacity['capacity']) && !empty($courseSetting['live_course_enabled'])) {
-				return $this->createMessageResponse('info', '请联系EduSoho官方购买直播教室，然后才能开启直播功能！');
-			}
-		}
+		// 	if (empty($capacity['capacity']) && !empty($courseSetting['live_course_enabled'])) {
+		// 		return $this->createMessageResponse('info', '请联系EduSoho官方购买直播教室，然后才能开启直播功能！');
+		// 	}
+		// }
 
-		if (false === $this->get('security.context')->isGranted('ROLE_TEACHER')) {
-			throw $this->createAccessDeniedException();
-		}
+		// if (false === $this->get('security.context')->isGranted('ROLE_TEACHER')) {
+		// 	throw $this->createAccessDeniedException();
+		// }
 
 		if ($request->getMethod() == 'POST') {
-			$course = $request->request->all();
+			// $course = $request->request->all();
+	
+			$eeoBase = new EeoBaseController();
+
+			$eeCourse = $eeoBase->getList('course');
+			
+			foreach ($eeCourse->data as $key => $value) {
+			
+				$course['id'] = $value->course_id;
+				$course ['title'] = $value->course_name;
+				$course['type'] = "normal";
+			
+				$course = $this->getCourseService()->createCourse($course);
+			}
+			echo "Success saving all eeo data";
+exit;
+
+
 			$course = $this->getCourseService()->createCourse($course);
 			return $this->redirect($this->generateUrl('course_manage', array('id' => $course['id'])));
 		}

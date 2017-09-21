@@ -25,6 +25,7 @@
     <link href="{{ asset('bundles/metronicadmin/themes/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
     <link href="{{ asset('bundles/metronicadmin/themes/global/css/plugins.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
+    {% block pageLevelCSSStyles %}{% endblock %}
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/layout.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/metronicadmin/themes/layouts/layout5/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
@@ -666,7 +667,7 @@
 
     <script src="{{ asset('bundles/metronicadmin/themes/global/scripts/app.min.js') }}" type="text/javascript"></script>
 
-    {% block pageLevelScripts %}{% endblock %}
+    {% block pageLevelJSScripts %}{% endblock %}
 
     <script src="{{ asset('bundles/metronicadmin/themes/layouts/layout5/scripts/layout.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/metronicadmin/themes/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
